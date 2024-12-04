@@ -49,6 +49,27 @@ var wmslite = {
 	onshow: function()
 	{
 		console.log("IN wmslite.onshow()");
+
+		jQuery("#BTN_GO_TEST").off("click").on("click", function(){
+			
+			let html = file2bin("app/html/EN/print2.html");
+
+			let options = {
+ 				landscape: "landscape",
+        type: 'share',
+				fileName: 'myFile.pdf'
+      };
+
+			pdf.fromData(html, options)
+    	.then((status)=>{
+				console.log("status='" + status + "'");
+			})
+    	.catch((err)=>{
+				console.error("Rejected by pdf.fromData()");
+				console.error(err);
+			});
+
+		});
 	},
 
 
