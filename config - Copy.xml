@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="org.eu5.radiahub.wmslite" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+
+  <name>WMS Lite</name>
+
+  <description>Single warehouse, single user WMS stand-alone app testbench</description>
+
+	<author email="radiahub@gmail.com" href="https://sites.google.com/view/radiahub">
+			Denis Patrice, Rafael Yunus
+	</author>
+
+  <content src="index.html" />
+
+	<access origin="*" />
+	<allow-navigation href="*" />
+	<allow-intent href="*" />
+
+	<preference name="AndroidInsecureFileModeEnabled" value="true" />
+	<preference name="AndroidWindowSplashScreenBackground" value="#FFFFFF" />
+	<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/android/splash.png" />
+	<preference name="AndroidLaunchMode" value="singleTask" />
+	<preference name="StatusBarOverlaysWebView" value="false" />
+	<preference name="Orientation" value="portrait" />
+	<preference name="LoadUrlTimeoutValue" value="90000" />
+	<preference name="package_id" value="radiahub.wmslite" />
+	<preference name="statusbar" value='{"light":"#0000CC", "dark":"#000000"}' />
+	<preference name="navigationbar" value='{"light":"#0000CC", "dark":"#000000"}' />
+
+	<platform name="android">
+		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
+    <preference name="AndroidPostSplashScreenTheme" value="@style/AppTheme" />
+    <resource-file src="res/android/styles.xml" target="app/src/main/res/values/styles.xml" />
+	</platform>
+		
+</widget>

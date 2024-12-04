@@ -1,0 +1,50 @@
+/* ************************************************************************ */
+/*
+Module      : layout.css
+Version     : 3.0R0.0
+
+Author      : Denis Patrice <denispatrice@yahoo.com>
+Copyright   : Copyright (c) Denis Patrice Dipl.-Ing. 2010, 2017
+              All rights reserved
+
+Application : Main website
+Description : Default scheme: layout definition
+
+Date+Time of change   By     Description
+----------- ---- ------------------------
+12-May-24 00:00 WIT   Denis  Deployment V. 2024 "LEO MALET"
+
+/* ************************************************************************ */
+
+/* ************************************************************************ */
+/* ************************************************************************ */
+/*                                                                          */
+/* LAYOUT                                                                   */
+/*                                                                          */
+/* ************************************************************************ */
+/* ************************************************************************ */
+
+html, body { font-family: sans-serif; font-size: 1rem; }
+
+
+@media screen and (max-width:599px) {
+	.show-s              { display: block; }
+	.expand-s            { display: block; width: 100%; }
+	.hide-s, .collapse-s { display: none; }
+}
+
+@media screen and (min-width:600px) and (max-width:899px) {
+	.show-m              { display: block; }
+	.expand-m            { display: block; width: 100%; }
+	.hide-m, .collapse-m { display: none;  }
+}
+
+@media screen and (min-width:900px) {
+	.show-l              { display: block; }
+	.expand-l            { display: block; width: 100%; }
+	.hide-l, .collapse-l { display: none; }
+}
+
+
+/* End of file: layout.css
+/* ************************************************************************ */

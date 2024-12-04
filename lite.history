@@ -1,0 +1,168 @@
+radiahub.wmslite "WMS Lite"
+--------------------------
+
+package_id  : radiahub.wmslite
+Author      : Denis Auguste Patrice <radiahub@gmail.com>
+Framework   : Java 11.0.18 cordova 12.0.0 cordova-android 13.0.0
+Description : Android client applications
+Timestamp   : [2024]-[Dec]-[04] [23]:[59]
+
+
+[X] UNDERSTAND THE APPLICATION TO BUILD
+
+	[ ] Native application
+	[X] Hybrid stand-alone Cordova application
+	[X] Web site or web application viewed in Cordova InAppBrowser
+
+
+[X] SETUP GITHUB REPOSITORY
+
+	[X] Public repository
+	[ ] Private repository
+
+	Create github repository radiahub/wmslite
+	Setup initial .gitignore using C:\bin\xampp\htdocs\templates\.gitignore
+	Commit initial .gitignore as ".gitignore for initial commit"
+
+
+[X] CREATE CORDOVA APPLICATION
+
+	Open CMD or Powershell
+	
+	[X] Create cordova application
+
+		  cd C:\dev\Android
+		  cordova create wmslite radiahub.wmslite "%~2"
+
+	[X] Add Android platform
+
+			cd C:\dev\Android\wmslite
+			cordova platform add android
+
+	[X] Verify directory structure
+
+	[X] Add hooks directory
+
+		  Copy reference C:\bin\xampp\htdocs\templates\apk\hooks to C:\dev\Android\wmslite\hooks
+
+
+	[X] Edit Cordova configuration
+	
+		Edit C:\dev\Android\wmslite\config.xml
+
+			Edit <name>, <description>, <author> sections
+			Edit access restriction section as follows:
+
+			<access origin="*" />
+			<allow-navigation href="*" />
+			<allow-intent href="*" />
+
+			NB: set section <content src="index.html" /> only if using a different path (default: remove)
+
+		Add preferences section using application values
+
+			<preference name="AndroidInsecureFileModeEnabled" value="true" />
+			<preference name="AndroidWindowSplashScreenBackground" value="#FFFFFF" />
+			<preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/app/res/splash.png" />
+			<preference name="StatusBarOverlaysWebView" value="false" />
+			<preference name="AndroidLaunchMode" value="singleTask" />
+			<preference name="Orientation" value="portrait" />
+			<preference name="LoadUrlTimeoutValue" value="90000" />
+			<preference name="package_id" value="radiahub.wmslite" />
+			<preference name="statusbar" value='{"light":"#FFFFFF", "dark":"#CC0000"}' />
+			<preference name="navigationbar" value='{"light":"#0000CC", "dark":"#CC0000"}' />
+
+		Add hook reference
+
+			<platform name="android">
+				<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
+			</platform>
+
+
+	[X] Edit Android manifest
+
+		Edit C:\dev\Android\wmslite%\platforms\android\app\src\main\AndroidManifest.xml:
+
+		Add webintent intent-filter
+
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:host="sites.google.com" android:pathPrefix="/view/radiahub/wmslite" android:scheme="https" />
+			</intent-filter>
+		
+		to <activity> tag
+
+		Edit <activity> tag, set or add attribute android:windowSoftInputMode="adjustPan"
+
+		Edit <application> tag, set or add attribute android:usesCleartextTraffic="true"
+
+
+	[X] Add .gitignore and .history files into C:\dev\Android\wmslite folder
+
+
+[X] ADD APPLICATION PLUGINS
+
+	cd C:\dev\Android\wmslite
+	plugins wmslite lite
+
+
+[X] CREATE BASIC APPLICATION IMAGE
+
+		Rename C:\dev\Android\wmslite\www to C:\dev\Android\wmslite\www.ori
+		Create directory C:\dev\Android\wmslite\www
+		Copy C:\bin\xampp\htdocs\templates\apk-lite\www to C:\dev\Android\wmslite\www
+		Rename C:\dev\Android\wmslite\www\app\js[appid].js wmslite.js
+		Edit files to adapt to basic application image
+
+
+[X] CREATE APPLICATION ICONS AND SPLASH SCREEN
+
+		cd C:\dev\Android\www\app
+		Create directory C:\dev\Android\www\app\res\res (2x res)
+
+		Using https://romannurik.github.io/AndroidAssetStudio/index.html:
+
+			Generate Android Adaptive launcher icons ic_launcher into any temporary working directory
+			Deploy ic_launcher res directories into C:\dev\Android\wmslite\platforms\android\app\src\main\res*
+
+			Generate fcm_push_icon notification icon files into any temporary working directory
+			Rename fcm_push_icon directories drawable*/ to mipmap*/
+			Deploy fcm_push_icon res directories to C:\dev\Android\wmslite\platforms\android\app\src\main\res*
+		
+			Generate splash screen icon 900x900px transparent, centered icon 320x320px, into C:\dev\Android\wmslite\res
+
+		Clean drawable directories in C:\dev\Android\wmslite\platforms\android\app\src\main\res
+
+
+[X] VERIFY ALL GENERATED FILES
+
+
+[ ] RUN FIRST APPLICATION BUILD
+
+	cd C:\dev\Android\wmslite
+	cordova clean android
+	cordova prepare
+	cordova build android
+
+
+[ ] DEPLOY GIT VERSION CONTROL
+
+	NB: you may have to restart windows to access the directories
+
+	cd C:\dev\Android
+	Rename C:\dev\Android\wmslite to C:\dev\Android\wmslite.src
+	gh repo clone radiahub/wmslite
+	Rename C:\dev\Android\wmslite to C:\dev\Android\wmslite.git
+	Rename C:\dev\Android\wmslite.src to C:\dev\Android\wmslite
+	xcopy wmslite.git wmslite /s /r /e /v /h /y
+	Delete C:\dev\Android\wmslite.git
+	Open wmslite in Visual Code
+	Check GIT accessed properly
+	Initial commit to Github
+	Initial push action
+  Verify data on Github
+
+
+End of file: lite.history
