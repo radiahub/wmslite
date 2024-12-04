@@ -19,3 +19,50 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+#Version control directory and directories created by visual code
+.git/
+typings/
+.vscode/
+
+#Node artifact files
+node_modules/
+dist/
+
+#Thumbnails created by windows
+Thumbs.db
+
+#Directories created by xampp
+dashboard/
+webalizer/
+xampp/
+phpmyadmin/
+
+#Imported libraries
+import/
+fonts/
+google-api-php-client-2.2.4/
+
+#Symbolic links
+*.lnk
+
+#Deprecated scripts
+deprecated/
+_deprecated/
+
+#External tools
+phpMyAdmin/
+
+#Downloadable documents
+download/
+*.apk
+
+#External resource documents
+documents/
+inspiration/
+
+#External resource files
+resources/
+
+#Large database dump files
+dump/
