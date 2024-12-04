@@ -27,7 +27,7 @@ var connect = {
 
 	toast : {
 
-		time : 6000,
+		time : 7500,
 
 		html : '<div id="DIV_CONNECT_TOAST" class="page-docking-bottom flex-middle [bg-color] fg-white h5" style="height:2.0rem; z-index:25510;">'
 				 + '[caption]'
@@ -35,16 +35,16 @@ var connect = {
 
 		showing: false,
 
-		show : function(bg_color,caption) {
+		show : function(bg_color, caption) {
 			//console.info("IN connect.toast.show()");
 			if (connect.toast.showing) {
 				jQuery("#DIV_CONNECT_TOAST").remove();
 			}
-			var html = connect.toast.html;
-			html = str_replace("[bg-color]", bg_color, html);
-			html = str_replace("[caption]",  caption,  html);
-			//console.log(strlen(html));
-			jQuery("body").append(html);
+			var _html = connect.toast.html;
+			_html = str_replace("[bg-color]", bg_color, _html);
+			_html = str_replace("[caption]",  caption,  _html);
+			//console.log(strlen(_html));
+			jQuery("body").append(_html);
 			connect.toast.showing = true;
 			setTimeout(
 				function(){ 
@@ -66,7 +66,7 @@ var connect = {
 		online : function() {
 			//console.info("IN connect.toast.online()");
 			var bg_color = "bg-green";
-			var caption  = "Online";
+			var caption  = "Back online";
 			connect.toast.show(bg_color, caption);
 		}
 	},
@@ -121,19 +121,13 @@ var connect = {
 	connected : function()
 	{
 		//console.info("IN connect.connected()");
-		if ((typeof cordova == "object") || (window.hasOwnProperty("cordova"))) {
-			var dummy = connect.connection();
-			//console.log(dummy);
-			if ((dummy !== null) && (strcasecmp(dummy, "NONE") !== 0)) {
-				return true;
-			}
-			else {
-				return false;
-			}
+		var dummy = connect.connection();
+		//console.log(dummy);
+		if ((dummy !== null) && (strcasecmp(dummy, "NONE") !== 0)) {
+			return true;
 		}
 		else {
-			//console.log("Browser return connected=true");
-			return true;
+			return false;
 		}
 	},
 
@@ -189,11 +183,6 @@ var connect = {
 	{
 		url = connect.randomizeURL(url);
 		//console.info("IN connect.rawget() url='" + url + "'");
-		if (!connect.connected()) {
-			//console.log("Not connected");
-			connect.toast.offline();
-			return null;
-		}
     var result = (function() {
 	    var result = null;
 			var args = {
@@ -219,15 +208,19 @@ var connect = {
 	// --------------------------------------------------------------------------
 	// --------------------------------------------------------------------------
 
-	get : function(url)
+	get : function(url, verify_connection)
 	{
 		return new Promise(
 			(resolve, reject) => {
 
-				url = connect.randomizeURL(url);
-				//console.info("IN connect.get() url='" + url + "'");
+				if (typeof verify_connection === "undefined") {
+					verify_connection = false;
+				}
 
-				if (connect.connected()) {
+				var do_the_job = function() {
+
+					url = connect.randomizeURL(url);
+					//console.info("IN connect.get() url='" + url + "'");
 
 					var args = {
 						url      : url,
@@ -249,33 +242,45 @@ var connect = {
 						reject(); 
 					});
 
+				};
+
+				if (verify_connection) {
+					if (connect.connected()) {
+						do_the_job();
+					}
+					else {
+						connect.toast.offline();
+						reject();
+					}
 				}
 				else {
-					//console.warn("Not connected");
-					connect.toast.offline();
-					reject();
+					do_the_job();
 				}
 
 			}
 		);
 	},
 
-	post : function(row, url) 
+	post : function(url, data, verify_connection) 
 	{
 		return new Promise(
 			(resolve, reject) => {
 
-				url = connect.randomizeURL(url);
-				//console.info("IN connect.post() url='" + url + "'");
-				//console.log(JSON.stringify(row));
+				if (typeof verify_connection === "undefined") {
+					verify_connection = false;
+				}
 
-				if (connect.connected()) {
+				var do_the_job = function() {
+
+					url = connect.randomizeURL(url);
+					//console.info("IN connect.post() url='" + url + "'");
+					//console.log(JSON.stringify(data));
 
 					var args = {
 						url         : url,
 						async       : true,
 						method      : "POST",
-						data        : row,
+						data        : data,
 						dataType    : "text",
 						crossDomain : true
 					};
@@ -296,11 +301,19 @@ var connect = {
 						reject(); 
 					});
 
+				};
+
+				if (verify_connection) {
+					if (connect.connected()) {
+						do_the_job();
+					}
+					else {
+						connect.toast.offline();
+						reject();
+					}
 				}
 				else {
-					//console.warn("Not connected");
-					connect.toast.offline();
-					reject();
+					do_the_job();
 				}
 
 			}

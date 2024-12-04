@@ -361,10 +361,10 @@ var echo = {
 	{
 		if (! DOMExists("DIV_ECHO_CONTAINER")) {
 			//alert("IN echo.init()->create(DIV_ECHO_CONTAINER)", "Info", "OK", noop);
-			//var filepath = "lib/html/echo.html";
+			var filepath = "lib/html/echo.html";
 			//alert(filepath);
 			
-			var html = file2bin("lib/html/echo.html");
+			var html = file2bin(filepath);
 			//alert(strlen(html));
 			if (strlen(html) > 0) {
 				jQuery(document.body).append(html);

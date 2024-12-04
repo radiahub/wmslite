@@ -139,7 +139,7 @@ Timestamp   : [2024]-[Dec]-[04] [23]:[59]
 [X] VERIFY ALL GENERATED FILES
 
 
-[ ] RUN FIRST APPLICATION BUILD
+[X] RUN FIRST APPLICATION BUILD
 
 	cd C:\dev\Android\wmslite
 	cordova clean android
@@ -147,7 +147,7 @@ Timestamp   : [2024]-[Dec]-[04] [23]:[59]
 	cordova build android
 
 
-[ ] DEPLOY GIT VERSION CONTROL
+[X] DEPLOY GIT VERSION CONTROL
 
 	NB: you may have to restart windows to access the directories
 

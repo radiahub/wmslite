@@ -577,7 +577,7 @@ var application = {
 
 	onoffline_ : function (e)
   {
-		//console.info("IN application.onoffline_()");
+		console.info("IN application.onoffline_()");
 		if (typeof connect !== "undefined") {
 			connect.toast.offline()
 		}
@@ -813,6 +813,8 @@ var application = {
 									connect.toast.offline();
 								}
 
+								console.log("After connection check");
+
 								theme.init();
 
 								dbase.open()
@@ -855,13 +857,13 @@ var application = {
 	{
 		application.initDevice()
 		.then (()=>{
-			//console.log("Resolved by application.initDevice()");
+			console.log("Resolved by application.initDevice()");
 			callback()
 			.then (()=>{ 
 				console.log("Application runs normally");
 			})
 			.catch(()=>{
-				//console.error("Rejected by callback()");
+				console.error("Rejected by callback()");
 				application.mobileExit();
 			});
 		})
@@ -878,9 +880,7 @@ var application = {
 				if (typeof echo !== "undefined") {
 					echo.init();
 				}
-				//console.info("IN application.run()");
-				//wait.show();
-				//console.log("After wait.show()");
+				console.info("IN application.run()");
 				application.onrun(callback);
 			},
 			false
