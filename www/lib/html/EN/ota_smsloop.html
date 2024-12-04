@@ -1,0 +1,71 @@
+<div class="page background  overflow-none">
+
+	<div class="row border-1-px-bottom border-light" style="height:3.8em;">
+		<div class="col-3 keep padding-s-left fit-height flex-left">
+			<div id="BTN_CLOSE_SETTINGS" class="relative flex-middle circle dark" style="height:2.8em; width:2.8em;">
+				<i class="zmdi zmdi-arrow-left" style="font-size: 1.8rem;"></i>
+			</div>
+		</div>
+		<div class="col-18 keep mockupTOOLS fit-height flex-left h3 dark bold">
+			OTA Verification
+		</div>
+		<div class="col-3 keep"></div>
+	</div>
+
+	<div class="page-docking-bottom overflow-y" style="top:3.8em;">
+
+		<div class="row padding-l-left padding-l-right">
+			<div class="col-24">
+				<p>An SMS with a verification code has been sent to:</p>
+				<p><span id="SPAN_OTA_PHONE_NO" class="bold">&nbsp;</span></p>
+				<p>The verification code will be <b>automatically</b> processed on reception.</p>
+				<p>Alternatively, you can enter the received code here.</p>
+			</div>
+		</div>
+
+		<div class="row margin-l-top">
+			<div id="DIVCONT_CODE_INPUT" class="relative h4" style="width:10.3em; height:2.8em; margin:0 auto;">
+				<div id="DIV_CODE_DIGIT_0" class="relative code-digit fit-height float-left flex-middle neutral border-2-px-bottom border-light" style="width: 2.2em;"></div>
+				<div class="relative fit-height float-left" style="width: 0.5em;"></div>
+				<div id="DIV_CODE_DIGIT_1" class="relative code-digit fit-height float-left flex-middle neutral border-2-px-bottom border-light" style="width: 2.2em;"></div>
+				<div class="relative fit-height float-left" style="width: 0.5em;"></div>
+				<div id="DIV_CODE_DIGIT_2" class="relative code-digit fit-height float-left flex-middle neutral border-2-px-bottom border-light" style="width: 2.2em;"></div>
+				<div class="relative fit-height float-left" style="width: 0.5em;"></div>
+				<div id="DIV_CODE_DIGIT_3" class="relative code-digit fit-height float-left flex-middle neutral border-2-px-bottom border-light" style="width: 2.2em;"></div>
+				<div class="absolute bg-transparent" style="top:0; left:0; width:100%; height:100%;">
+					<input id="INP_OTA_CODE" type="tel" value="" autocomplete="off" maxlength="[digits]" style="background:transparent; color:rgba(0,0,0,0); width:100%; height:100%;">
+				</div>
+			</div>
+		</div>
+
+		<div id="DIV_OTA_TIMER_CONTAINER" class="row margin-xl-top padding-l-left padding-l-right" style="display:block;">
+			<div class="col-24 light">
+				Try again in <span id="SPAN_OTA_TIMER" class="bold">&nbsp;</span>
+			</div>
+		</div>
+
+		<div id="DIV_OTA_BTN_RETRY" class="row margin-xl-top padding-l-left padding-l-right" style="display:none;">
+			<div class="col-24">
+				<div class="row">
+					<div class="col-24">
+						Press <span class="bold">Resend</span> to resend the SMS with the verification code. Operator charges may apply.
+					</div>
+				</div>
+				<div class="row margin-xl-top">
+					<div class="col-4 keep"></div>
+					<div class="col-7 keep">
+						<div id="BTN_GO_OTA_CANCEL" class="button transparent">Cancel</div>
+					</div>
+					<div class="col-2 keep"></div>
+					<div class="col-7 keep">
+						<div id="BTN_GO_OTA_RETRY" class="button default">Resend</div>
+					</div>
+					<div class="col-4 keep"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

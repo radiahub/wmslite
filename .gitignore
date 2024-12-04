@@ -16,7 +16,6 @@ Thumbs.db
 #Ignore imported and library files
 import/
 fonts/
-lib/
 
 #Ignore downloadable documents
 download/

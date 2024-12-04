@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Patrice;Denis
+FN:Denis Patrice
+TEL;TYPE=work,mobile:+6281918245501
+EMAIL;TYPE=internet,work:radiahub@gmail.com
+URL;TYPE=work:https://sites.google.com/view/radiahub
+ORG:radiahub
+TITLE:Senior Software Developer
+END:VCARD

@@ -1,0 +1,42 @@
+<div id="DIV_ECHO_CONTAINER" class="page bg-black overflow-none" style="z-index:24000; display:none;">
+
+	<div class="page-docking-top bg-blue fg-white" style="height:36px;">
+		<div class="row fit-height">
+			<div id="BTN_ECHO_CLEAR" class="col-2 keep fit-height flex-middle">
+				<i class="zmdi zmdi-block h3"></i>
+			</div>
+			<div class="col-16"></div>
+			<div id="BTN_ECHO_SHARE" class="col-2 keep fit-height flex-middle">
+				<i class="zmdi zmdi-share h3"></i>
+			</div>
+			<div id="BTN_ECHO_COPY" class="col-2 keep fit-height flex-middle">
+				<i class="zmdi zmdi-copy h3"></i>
+			</div>
+			<div id="BTN_ECHO_CLOSE" class="col-2 keep float-right fit-height flex-middle">
+				<i class="zmdi zmdi-close h3"></i>
+			</div>
+		</div>
+	</div>
+
+	<div id="DIV_ECHO_DATA" class="absolute padding-s-left padding-s-right overflow-y" style="top: 36px; bottom: 36px; height:calc(100% - 72px); width:100vw;"></div>
+
+	<div class="page-docking-bottom bg-blue fg-white flex-middle" style="height:36px;">
+		<div id="DIV_ECHO_DEVICE_ID"  class="fit-width h5 padding-m-left padding-m-right">&nbsp;</div>
+		<div id="DIV_ECHO_TOAST"      class="absolute fit flex-middle h5 bg-darkindigo fg-white" style="top:0px; left: 0px; display:none;">&nbsp;</div>
+		<div id="DIV_ECHO_TOASTERROR" class="absolute fit flex-middle h5 bg-darkred fg-white"    style="top:0px; left: 0px; display:none;">&nbsp;</div>
+	</div>
+
+	<div id="DIVTPL_ECHO_ECHOLINE" style="display:none;">
+		<div id="[echoline_id]" class="row echoline">
+			<div class="col-24">
+				<div class="row margin-s-top margin-s-bottom">
+					<div class="col-24 echoline-text h4 monospace wordwrap [fg-color]">[text]</div>
+				</div>
+				<div class="row padding-m-bottom border-1-px-bottom border-gray">
+					<div class="col-24 echoline-time h6 monospace wordwrap [fg-color]">[time]</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
