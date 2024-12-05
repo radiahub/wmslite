@@ -52,14 +52,26 @@ var wmslite = {
 
 		jQuery("#BTN_GO_TEST").off("click").on("click", function(){
 			
-			let html = file2bin("app/html/EN/print2.html");
+			let cssFile = "file:///android_asset/www/app/css/default.css";
+			let html = file2bin("app/html/EN/print3.html");
+			var payload = _.template(html);
 
 			let options = {
  				landscape: "landscape",
         type: 'share',
-				fileName: 'myFile.pdf'
+				fileName: 'myFileN.pdf'
       };
 
+			pdf.fromData(payload({css_file: cssFile}), options)
+    	.then((status)=>{
+				console.log("status='" + status + "'");
+			})
+    	.catch((err)=>{
+				console.error("Rejected by pdf.fromData()");
+				console.error(err);
+			});
+			
+			/*
 			pdf.fromData(html, options)
     	.then((status)=>{
 				console.log("status='" + status + "'");
@@ -68,6 +80,7 @@ var wmslite = {
 				console.error("Rejected by pdf.fromData()");
 				console.error(err);
 			});
+			*/
 
 		});
 	},

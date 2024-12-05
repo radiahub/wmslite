@@ -105,6 +105,45 @@ var barcode = {
 			100
 		);
 		
+		return svgID;
+	},
+
+	dataURL : function()
+	{
+		/*
+		svg {
+			border: 1px solid green;
+		}
+
+		img {
+			border: 1px solid red;
+		}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+
+		<svg id="barcode"></svg>
+		<img id="image"></img>		
+		*/
+
+		var number = '12345678';
+
+		JsBarcode("#barcode", number, {
+			text: number.match(/.{1,4}/g).join("  "),
+			width: 2,
+			height: 50,
+			fontSize: 15,
+		});
+
+		var svg = $("#barcode")[0];
+
+		var xml = new XMLSerializer().serializeToString(svg);
+
+		var base64 = 'data:image/svg+xml;base64,' + btoa(xml);
+
+		var img = $("#image")[0];
+
+		img.src = base64;
+
 	}
 
 };
