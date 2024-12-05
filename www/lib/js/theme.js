@@ -50,24 +50,28 @@ var theme = {
 			return new Promise(
 				(resolve, reject)=>{
 					console.info("IN theme.statusbar.fromHexColor() bg_color='" + bg_color + "'");
-					bg_color = hex2color(bg_color);
-					var foreground = contrast(bg_color);
-					console.log("foreground='" + foreground + "'");
-					try {
-						theme.statusbar.currentColor = bg_color;
-						StatusBar.backgroundColorByHexString(bg_color);
-						if (strcasecmp(foreground, "light") === 0) {
-							StatusBar.styleLightContent();
+					delay(200,function(){
+
+						bg_color = hex2color(bg_color);
+						var foreground = contrast(bg_color);
+						console.log("foreground='" + foreground + "'");
+						try {
+							theme.statusbar.currentColor = bg_color;
+							StatusBar.backgroundColorByHexString(bg_color);
+							if (strcasecmp(foreground, "light") === 0) {
+								StatusBar.styleLightContent();
+							}
+							else {
+								StatusBar.styleDefault();
+							}
+							resolve();
 						}
-						else {
-							StatusBar.styleDefault();
+						catch(e) {
+							//console.error("Runtime error in statusbar.fromHexColor()");
+							reject();
 						}
-						resolve();
-					}
-					catch(e) {
-						//console.error("Runtime error in statusbar.fromHexColor()");
-						reject();
-					}
+
+					});
 				}
 			);
 		},
@@ -117,10 +121,10 @@ var theme = {
 					try {
 						theme.navigationbar.currentColor = bg_color;
 						if (strcasecmp(foreground, "light") === 0) {
-							NavigationBar.backgroundColorByHexString(bg_color, true);		
+							NavigationBar.backgroundColorByHexString(bg_color, false);		
 						}
 						else {
-							NavigationBar.backgroundColorByHexString(bg_color, false);				
+							NavigationBar.backgroundColorByHexString(bg_color, true);				
 						}
 						resolve();
 					}

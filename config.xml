@@ -16,15 +16,15 @@
 	<allow-intent href="*" />
 
 	<preference name="AndroidInsecureFileModeEnabled" value="true" />
-	<preference name="AndroidWindowSplashScreenBackground" value="#FFFFFF" />
+	<preference name="AndroidWindowSplashScreenBackground" value="#050D3C" />
 	<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/android/splash.png" />
 	<preference name="AndroidLaunchMode" value="singleTask" />
 	<preference name="StatusBarOverlaysWebView" value="false" />
 	<preference name="Orientation" value="portrait" />
 	<preference name="LoadUrlTimeoutValue" value="90000" />
 	<preference name="package_id" value="radiahub.wmslite" />
-	<preference name="statusbar" value='{"light":"#00CCCC", "dark":"#CC0000"}' />
-	<preference name="navigationbar" value='{"light":"#0000CC", "dark":"#CC0000"}' />
+	<preference name="statusbar" value='{"light":"#050D3C", "dark":"#050D3C"}' />
+	<preference name="navigationbar" value='{"light":"#050D3C", "dark":"#050D3C"}' />
 
 	<platform name="android">
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
