@@ -110,7 +110,8 @@ var wmslite = {
 		wmslite.page = new page({
 			page_id          : "page_wmslite",
 			containerID      : "",
-			contentURI       : "app/html/finance_overview.html",
+			contentURI       : "app/html/today_payments.html",
+		//contentURI       : "app/html/finance_overview.html",
 		//contentURI       : "app/html/wmslite.html",
 			scriptURI        : "app/js/wmslite.js",
 			windowObjectName : "wmslite",
