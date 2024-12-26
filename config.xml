@@ -22,9 +22,11 @@
 	<preference name="StatusBarOverlaysWebView" value="false" />
 	<preference name="Orientation" value="portrait" />
 	<preference name="LoadUrlTimeoutValue" value="90000" />
+	<preference name="backgroundColor" value="0xFF000000" />
 	<preference name="package_id" value="radiahub.wmslite" />
-	<preference name="statusbar" value='{"light":"#050D3C", "dark":"#050D3C"}' />
-	<preference name="navigationbar" value='{"light":"#050D3C", "dark":"#050D3C"}' />
+	<preference name="gateway" value='{"uri":"","secret":""}'/>
+	<preference name="statusbar" value='{"light":"#FFFFFF", "dark":"#000000"}' />
+	<preference name="navigationbar" value='{"light":"#FFFFFF", "dark":"#000000"}' />
 
 	<platform name="android">
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
