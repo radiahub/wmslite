@@ -1,0 +1,187 @@
+/* ************************************************************************ */
+/*
+Module      : themes.css
+Version     : 3.0R0.0
+
+Author      : Denis Patrice <denispatrice@yahoo.com>
+Copyright   : Copyright (c) Denis Patrice Dipl.-Ing. 2010, 2017
+              All rights reserved
+
+Application : Main website
+Description : Default scheme: themes definition
+
+Date+Time of change   By     Description
+----------- ---- ------------------------
+12-May-24 00:00 WIT   Denis  Deployment V. 2024 "LEO MALET"
+
+/* ************************************************************************ */
+
+/* ************************************************************************ */
+/* ************************************************************************ */
+/*                                                                          */
+/* DEFAULT THEMES                                                           */
+/*                                                                          */
+/* ************************************************************************ */
+/* ************************************************************************ */
+
+.theme-light {
+
+	/* Mobile layout */
+	--splashbar               : #FFFFFF;
+	--statusbar               : #FFFFFF;
+	--navigationbar           : #FFFFFF;
+
+	/* Surfaces and backgrounds */
+	--background              : #F6F6F6;
+	--foreground              : #FFFFFF;
+	--dialog                  : #FFFFFF;
+	--menu                    : #FFFFFF;
+	--inversed                : #101B49;
+	--gossip                  : #F5F8FD;
+	--selected                : #999999;
+
+	/* Typography */
+	--text                    : #404040;
+	--dark                    : #000000;
+	--light                   : #999999;
+	--link                    : #555992;
+	--accent                  : #00AAAA;
+	--on-inversed             : #F0F0F0;
+	--on-inversed-dark        : #FFFFFF;
+	--on-gossip               : #585B6A;
+	--on-gossip-dark          : #000000;
+	--on-selected             : #F0F0F0;
+	--on-selected-dark        : #FFFFFF;
+
+	/* Controls */
+	--bg-disabled             : #B0B0B0;
+	--fg-disabled             : #F0F0F0;
+	--bg-off                  : #6A6A6A;
+	--fg-off                  : #CACACA;
+	--bg-on                   : #1E5EFF;
+	--fg-on                   : #E0E0F0;
+
+	--bg-ripple               : #E0E0E0;
+
+	--border-light            : #E0E0E0;
+	--border-dark             : #B0B0B0;
+	--border-gossip           : #B0B0B0;
+	--border-selected         : #B0B0B0;
+
+	--border-chart-grid       : #B0B0B0;
+	--fg-chart-grid           : #000000;
+	
+	--logo-background         : transparent;
+	--logo-color              : #40404C;
+	--logo-border             : #40404C;
+	--logo-on-inversed-color  : #F0F0F0;
+	--logo-on-inversed-border : #F0F0F0;
+}
+
+.theme-dark {
+
+	/* Mobile layout */
+	--splashbar               : #000000;
+	--statusbar               : #000000;
+	--navigationbar           : #000000;
+
+	/* Surfaces and backgrounds */
+	--background              : #000000;
+	--foreground              : #24282D;
+	--dialog                  : #24282D;
+	--menu                    : #24282D;
+	--inversed                : #A0A0E0;
+	--gossip                  : #101010;
+	--selected                : #101010;
+
+	/* Typography */
+	--text                    : #A0A0AD;
+	--dark                    : #F0F0F0;
+	--light                   : #606060;
+	--link                    : #DDDEEE;
+	--accent                  : #009999;
+	--on-inversed             : #202040;
+	--on-inversed-dark        : #000020;
+	--on-gossip               : #A0A0A0;
+	--on-gossip-dark          : #F0F0F0;
+	--on-selected             : #E0E0E0;
+	--on-selected-dark        : #FFFFFF;
+
+	/* Controls */
+	--bg-disabled             : #101010;
+	--fg-disabled             : #303030;
+	--bg-off                  : #8A8A8A;
+	--fg-off                  : #101010;
+	--bg-on                   : #1E5EFF;
+	--fg-on                   : #E0E0F0;
+
+	--bg-ripple               : #9090A0;
+
+	--border-light            : #30393C;
+	--border-dark             : #51505A;
+	--border-gossip           : #354955;
+	--border-selected         : #354955;
+
+	--border-chart-grid       : #354955;
+	--fg-chart-grid           : #8D9599;
+
+	--logo-background         : transparent;
+	--logo-foreground         : #FFFFFF;
+	--logo-border             : #FFFFFF;
+	--logo-on-inversed-color  : #202040;
+	--logo-on-inversed-border : #202040;
+
+}
+
+
+/* ************************************************************************ */
+/* ************************************************************************ */
+/*                                                                          */
+/* COLOR CLASSES                                                            */
+/*                                                                          */
+/* ************************************************************************ */
+/* ************************************************************************ */
+
+/* Mobile layout */
+.splashbar                 { background-color: var(--splashbar); }
+.statusbar                 { background-color: #00CC00; }
+.navigationbar             { background-color: var(--navigationbar); }
+
+/* Surfaces and backgrounds */
+.background                { background-color: var(--background); }
+.foreground                { background-color: var(--foreground); }
+
+.inversed                  { background-color: var(--inversed); }
+.inversed, .inversed .text { color: var(--on-inversed) !important; }
+.inversed .dark            { color: var(--on-inversed-dark) !important; }
+
+.gossip                    { background-color: var(--gossip);  border-color:var(--border-gossip); }
+.gossip, .gossip .text     { color:var(--on-gossip) !important; }
+.gossip .dark              { color:var(--on-gossip-dark) !important; }
+.selected                  { background-color: var(--selected);  border-color:var(--border-selected); }
+.selected, .selected .text { color:var(--on-selected) !important; }
+.selected .dark            { color:var(--on-selected-dark) !important; }
+
+/* Typography */
+.text                      { color: var(--text);   }
+.dark                      { color: var(--dark);   }
+.light                     { color: var(--light);  }
+.link                      { color: var(--link);   }
+.accent                    { color: var(--accent); }
+
+/* Controls */
+.active, .selected         { background-color: var(--selected);  color: var(--on-selected); border-color:var(--border-selected); }
+.active .dark,
+.selected .dark            { color:var(--on-selected-dark) !important; }
+.disabled                  { background-color: var(--bg-disabled); color: var(--fg-disabled); }
+.off                       { background-color: var(--bg-off); color: var(--fg-off); border-color: var(--fg-off); }
+.on                        { background-color: var(--bg-on); color: var(--fg-on); border-color: var(--fg-on); }
+.ripple,.bg-ripple         { background-color: var(--bg-ripple); } 
+.border-light              { border-color: var(--border-light); }
+.border-dark               { border-color: var(--border-dark); }
+
+.echoselected              { background-color: #EDF3FF; color: #000000 !important; }
+
+
+/* End of file: themes.css
+/* ************************************************************************ */

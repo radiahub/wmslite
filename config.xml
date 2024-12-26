@@ -16,8 +16,8 @@
 	<allow-intent href="*" />
 
 	<preference name="AndroidInsecureFileModeEnabled" value="true" />
-	<preference name="AndroidWindowSplashScreenBackground" value="#050D3C" />
-	<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/android/splash.png" />
+	<preference name="AndroidWindowSplashScreenBackground" value="#000000" />
+	<preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/app/res/splash.png" />
 	<preference name="AndroidLaunchMode" value="singleTask" />
 	<preference name="StatusBarOverlaysWebView" value="false" />
 	<preference name="Orientation" value="portrait" />
@@ -30,6 +30,8 @@
 
 	<platform name="android">
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
+    <preference name="AndroidPostSplashScreenTheme" value="@style/AppTheme" />
+    <resource-file src="www/app/res/styles.xml" target="app/src/main/res/values/styles.xml" />
 	</platform>
 		
 </widget>
