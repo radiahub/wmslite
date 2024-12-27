@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Order</title>
+	<link rel="stylesheet" href="file:///android_asset/www/lib/css/colors.css"></link>
+	<link rel="stylesheet" href="file:///android_asset/www/lib/css/default.css"></link>
+	<link rel="stylesheet" href="file:///android_asset/www/lib/css/report.css"></link>
+</head>
+<body>
+
+	<div class="fit bg-white">
+
+		<section>
+			<query></query>
+			<header>
+				<div class="row margin-m-top" style="height:64px;">
+					<div class="col-8 fit-height flex-left padding-s-left">
+						<img id="img_print_po" class="img" src="[src_img_print_po]">
+					</div>
+					<div class="col-4"></div>
+					<div class="col-12 fit-height flex-right padding-m-right">
+						<div class="fit-width text-right bold">
+							Purchase order<br>PO-241226-0048
+						</div>
+						<!-- SCREEN
+						<div class="fit-width text-right bold" style="font-size:95%;">
+							Purchase order<br>PO-241226-0048
+						</div>
+						-->
+					</div>
+				</div>
+			</header>
+		</section>
+
+		<section>
+			<query>
+				SELECT * FROM purchase_orders_items WHERE PO='[PO]' ORDER BY updated DESC
+			</query>
+			<header>
+				<div class="row margin-m-top" style="height:2.2em; background-color:#F0F0F0; color:#000000;">
+					<div class="col-4  fit-height flex-middle h5">Quantity</div>
+					<div class="col-12 fit-height flex-middle h5">Description</div>
+					<div class="col-4  fit-height flex-middle h5">Unit price</div>
+					<div class="col-4  fit-height flex-middle h5">Subtotal</div>
+				</div>
+			</header>
+			<loop>
+				<div class="row" style="height:2.2em; color:#000000;">
+					<div class="col-4  fit-height flex-middle h5">[quantity]</div>
+					<div class="col-12 fit-height flex-middle h5">Description</div>
+					<div class="col-4  fit-height flex-middle h5">Unit price</div>
+					<div class="col-4  fit-height flex-middle h5">Subtotal</div>
+				</div>
+			</loop>
+			<footer>
+			</footer>
+		</section>
+
+	</div>
+
+</body>
+</html>

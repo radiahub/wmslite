@@ -17,7 +17,8 @@
 
 var wmslite = {
 
-	page : null,
+	page : null, barcodeDataURL : "",
+
 	
 	// **************************************************************************
 	// **************************************************************************
@@ -46,17 +47,39 @@ var wmslite = {
 
 	onshow: function()
 	{
-		//console.info("IN wmslite.onshow()");
+		console.info("IN wmslite.onshow()");
 
 		jQuery("#BTN_CLOSE_WMSLITE").off("click").on("click", function(){
 			ripple(this, function(){
-				dbase.rows("SELECT * FROM locations")
-				.then ((rows)=>{
-					//console.log(JSON.stringify(rows));
+
+				console.info("IN jQuery(#BTN_CLOSE_WMSLITE).click()");
+
+				var options = {
+					metadata   : { src_img_print_po: wmslite.barcodeDataURL },
+					contentURI : "app/html/print_po.html",
+					globalize  : true
+				};
+
+				//console.log(JSON.stringify(options));
+
+				report(options)
+				.then (()=>{
+					console.log("Resolved by report()");
 				})
 				.catch(()=>{
-					//console.log("Rejected by dbase.rows()");
+					console.error("Rejected by report()");
 				});
+
+				/*
+				dbase.rows("SELECT * FROM locations")
+				.then ((rows)=>{
+					console.log(JSON.stringify(rows));
+				})
+				.catch(()=>{
+					console.error("Rejected by dbase.rows()");
+				});
+				*/
+
 			});
 		});
 
@@ -64,8 +87,9 @@ var wmslite = {
 
 		var options = {
 			format: "CODE128",
-			height : 40,
-			fontSize : 10,
+			height : 60,
+			margin : 0,
+			fontSize : 18,
   		displayValue : true
 		};
 
@@ -79,6 +103,7 @@ var wmslite = {
 				var dataURL = canvas.toDataURL("image/png");
 				//console.log(logFromDataURL(dataURL));
 				jQuery("#img_barcode").image(dataURL);
+				wmslite.barcodeDataURL = dataURL;
 			},
 			100
 		);

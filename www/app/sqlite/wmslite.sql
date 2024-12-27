@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS business
 	business_id        TEXT DEFAULT '', -- Business identifier
 	business_name      TEXT DEFAULT '', -- Business name
 	business_address   TEXT DEFAULT '', -- Business address (multiline)
+	business_city      TEXT DEFAULT '', -- Business city (separate for document timestamp)
 	business_LngLat    TEXT DEFAULT '', -- Longitude/latitude of business location (shareable)
 	im_dataURL_fname   TEXT DEFAULT '', -- File storage for image/logo business dataURL
 	bg_dataURL_fname   TEXT DEFAULT '', -- File storage for background image
