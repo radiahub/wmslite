@@ -78,6 +78,7 @@ function report(options)
 
 			//PRINT TO PDF
 			//
+			/*
 			var options_ = {
 				landscape : "portrait",
 				type      : 'share',
@@ -94,7 +95,53 @@ function report(options)
 				console.error(err);
 				reject();
 			});
-			
+			*/
+
+			//CREATE PDF FILE TO PLAY WITH
+			//
+			var options_ = {
+				landscape    : "portrait",
+				documentSize : 'A4',
+				type         : 'base64'
+			};
+
+			pdf.fromData(content, options_)
+    	.then ((base64)=>{       
+				
+				var filepath    = cordova.file.externalRootDirectory + "Download/";
+				var filename    = "PO-241226-0048.pdf";
+				var contentType = "application/pdf";
+				var dataBlob    = base64toBlob(base64, contentType);
+
+    		window.resolveLocalFileSystemURL(
+					filepath, 
+					function(dir) {
+        		console.log("Access to the directory granted succesfully");
+        		dir.getFile(
+							filename, 
+							{create:true}, 
+							function(file) {
+            		console.log("File created succesfully.");
+            		file.createWriter(
+									function(fileWriter) {
+              			console.log("Writing content to file");
+              			fileWriter.write(dataBlob);
+										resolve();
+            			}, 
+									function(){
+                		alert('Unable to save file in path '+ folderpath);
+										reject();
+            			}
+								);
+        			}
+						);
+    			}
+				);
+
+			})
+			.catch((err)=>{
+				console.err(err);
+			});
 
 		}
 	);

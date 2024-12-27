@@ -83,6 +83,33 @@ var wmslite = {
 			});
 		});
 
+
+		jQuery("#BTN_WITH_BARCODE").off("click").on("click", function(){
+			ripple(this, function(){
+
+				var filename = cordova.file.externalRootDirectory + "Download/" + "PO-241226-0048.pdf";
+
+				var options = {
+					message: "PO-241226-0048.pdf",
+					subject: "PO-241226-0048.pdf",
+					files: [filename]
+				};
+
+				var onSuccess = function(result) {
+					console.log("Share completed? " + result.completed);
+					console.log("Shared to app: " + result.app);
+				};
+
+				var onError = function(msg) {
+					console.log("Sharing failed with message: " + msg);
+				};
+
+				window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+
+			});
+		});
+
+
 		var po = "PO-241226-0048";
 
 		var options = {
