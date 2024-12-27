@@ -29,7 +29,7 @@ var wmslite = {
 
 	onbackbutton: function()
 	{
-		console.log("IN wmslite.onbackbutton()");
+		//console.info("IN wmslite.onbackbutton()");
 		wmslite.hide();
 	},
 
@@ -37,7 +37,7 @@ var wmslite = {
 	{
 		return new Promise(
 			(yes, no) => {
-				console.log("IN wmslite.onthemechanged() newThemeID='" + newThemeID + "'");
+				//console.info("IN wmslite.onthemechanged() newThemeID='" + newThemeID + "'");
 				//Do something useful
 				yes();
 			}
@@ -46,18 +46,44 @@ var wmslite = {
 
 	onshow: function()
 	{
-		console.log("IN wmslite.onshow()");
+		//console.info("IN wmslite.onshow()");
+
 		jQuery("#BTN_CLOSE_WMSLITE").off("click").on("click", function(){
 			ripple(this, function(){
 				dbase.rows("SELECT * FROM locations")
 				.then ((rows)=>{
-					console.log(JSON.stringify(rows));
+					//console.log(JSON.stringify(rows));
 				})
 				.catch(()=>{
-					console.log("Rejected by dbase.rows()");
+					//console.log("Rejected by dbase.rows()");
 				});
 			});
 		});
+
+		var po = "PO-241226-0048";
+
+		var options = {
+			format: "CODE128",
+			height : 40,
+			fontSize : 10,
+  		displayValue : true
+		};
+
+		//console.log(JSON.stringify(options));
+
+		JsBarcode("#barcode", po, options);
+
+		setTimeout(
+			function() {
+				var canvas = document.getElementById("barcode"); 
+				var dataURL = canvas.toDataURL("image/png");
+				//console.log(logFromDataURL(dataURL));
+				jQuery("#img_barcode").image(dataURL);
+			},
+			100
+		);
+
+
 	},
 
 
@@ -71,7 +97,7 @@ var wmslite = {
 
 	hide : function() 
 	{
-		console.log("IN wmslite.hide()");
+		//console.info("IN wmslite.hide()");
 		if (wmslite.page !== null) {
 			wmslite.page.remove();
 			wmslite.page = null;
@@ -80,7 +106,7 @@ var wmslite = {
 
 	show: function()
 	{
-		console.log("IN wmslite.show()");	
+		//console.info("IN wmslite.show()");	
 
 		wmslite.page = new page({
 			page_id          : "page_wmslite",
@@ -119,8 +145,41 @@ var wmslite = {
 				//console.log(JSON.stringify(queries));
 				dbase.batch(queries, false)
 				.then((logtxt)=>{
+
 					//console.log(logtxt);
-					resolve();
+
+					var q = "SELECT * FROM locations "
+								+ "WHERE location_id IN ('STORE','REFRIGERATED','INBOUND','PREPARATION','PACKAGING','OUTBOUND','TRANSIT','WASTE')";
+
+					dbase.rows(q)
+					.then ((rows)=>{
+						//console.log("Resolved by dbase.rows() length=" + rows.length);
+						if (rows.length > 0) {
+							resolve();
+						}
+						else {
+
+							var filename = "app/sqlite/locations.sql";
+							//console.log(filename);
+							var queries = file2queries(filename);
+							//console.log(JSON.stringify(queries));
+							dbase.batch(queries, false)
+							.then((logtxt)=>{
+								//console.log(logtxt);
+								resolve();
+							})
+							.catch(()=>{ 
+								//console.warn("Rejected by dbase.batch()");
+								resolve();
+							});
+
+						}
+					})
+					.catch(()=>{
+						//console.warn("Rejected by dbase.rows()");
+						resolve();
+					});
+
 				})
 				.catch(()=>{ 
 					//console.error("Rejected by dbase.batch()");
@@ -139,26 +198,26 @@ var wmslite = {
 
 				window.CacheClear(
 					function() {
-						console.log("Resolved by window.CacheClear()");
+						//console.log("Resolved by window.CacheClear()");
 						if (typeof echo !== "undefined") {
 							echo.init();
 						}
 
 						wmslite.init()
 						.then (()=>{
-							console.log("Resolved by wmslite.init()");
+							//console.log("Resolved by wmslite.init()");
 							wmslite.show();
 							resolve();
 						})
 						.catch(()=>{
-							console.error("Rejected by wmslite.init()");
+							//console.error("Rejected by wmslite.init()");
 							reject();
 						});
 
 					},
 					function(status) {
-						console.error("Rejected by window.CacheClear()");
-						console.error(status);
+						//console.error("Rejected by window.CacheClear()");
+						//console.error(status);
 						reject();
 					}
 				);

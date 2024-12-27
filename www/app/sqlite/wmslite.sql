@@ -29,6 +29,7 @@ DROP TABLE IF EXISTS business;
 CREATE TABLE IF NOT EXISTS business
 (
 	updated            TEXT DEFAULT '', -- Creation or update timestamp
+	business_id        TEXT DEFAULT '', -- Business identifier
 	business_name      TEXT DEFAULT '', -- Business name
 	business_address   TEXT DEFAULT '', -- Business address (multiline)
 	business_LngLat    TEXT DEFAULT '', -- Longitude/latitude of business location (shareable)
@@ -39,11 +40,6 @@ CREATE TABLE IF NOT EXISTS business
 	phone_no           TEXT DEFAULT '', -- User phone number
 	user_dataURL_fname TEXT DEFAULT ''  -- File storage for User profile image dataURL
 ); 
-
-INSERT INTO business
-(updated, business_name, business_address, user_name, phone_no)
-VALUES
-('2024-12-26 10:30:00', 'My Business', 'Street-number-block-postcode-city', 'My Name', '');
 
 
 
@@ -123,18 +119,6 @@ CREATE TABLE IF NOT EXISTS locations
 );
 
 CREATE INDEX IF NOT EXISTS Xlocations1 ON locations(location_id);
-
-INSERT INTO locations
-(updated, location_id, location_name, is_inventory, refrigerated)
-VALUES
-('2024-12-26 10:30:00', 'STORE',        'Unassigned storage location',      'YES', 'NO' ),
-('2024-12-26 10:30:00', 'REFRIGERATED', 'Unassigned refrigerated location', 'YES', 'YES'),
-('2024-12-26 10:30:00', 'INBOUND',      'Arrival dock',                     'YES', 'NO' ),
-('2024-12-26 10:30:00', 'PREPARATION',  'Preparation area',                 'NO',  'NO' ),
-('2024-12-26 10:30:00', 'PACKAGING',    'Packaging area',                   'NO',  'NO' ),
-('2024-12-26 10:30:00', 'OUTBOUND',     'Departure dock',                   'NO',  'NO' ),
-('2024-12-26 10:30:00', 'TRANSIT',      'Goods in transit',                 'NO',  'NO' ),
-('2024-12-26 10:30:00', 'WASTE',        'Waste area',                       'NO',  'NO' );
 
 
 
