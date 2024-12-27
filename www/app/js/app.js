@@ -20,7 +20,6 @@ var app = {
 	run : function() {
 		return new Promise(
 			(resolve, reject)=>{
-				
 				console.info("IN app.run()");
 
 				window.plugins.webintent.getUri(function(url) {

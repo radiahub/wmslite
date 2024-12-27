@@ -129,7 +129,7 @@ function report(options)
 										resolve();
             			}, 
 									function(){
-                		alert('Unable to save file in path '+ folderpath);
+                		console.error('Unable to save file in path '+ filepath);
 										reject();
             			}
 								);

@@ -109,6 +109,25 @@ var wmslite = {
 			});
 		});
 
+		jQuery("#BTN_SCAN_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				barcode.read()
+				.then ((result)=>{
+					console.log(JSON.stringify(result));
+					take_barcode(result)
+					.then (()=>{
+						console.log("Resolved by take_barcode()");
+					})
+					.catch(()=>{
+						console.warn("Rejected by take_barcode()");
+					});
+				})
+				.catch(()=>{
+					console.warn("Rejected by barcode.read()");
+				});
+			});
+		});
+
 
 		var po = "PO-241226-0048";
 
@@ -191,6 +210,8 @@ var wmslite = {
 			(resolve, reject)=>{
 				console.info("IN wmslite.init()");
 
+				R.reg("lib/html/strings.json");
+
 				var filename = "app/sqlite/wmslite.sql";
 				//console.log(filename);
 				var queries = file2queries(filename);
@@ -246,18 +267,14 @@ var wmslite = {
 	{
 		return new Promise(
 			(resolve, reject)=>{
-				console.info("IN wmslite.run()");
-
+				//console.info("IN wmslite.run()");
 				window.CacheClear(
 					function() {
 						//console.log("Resolved by window.CacheClear()");
-						if (typeof echo !== "undefined") {
-							echo.init();
-						}
-
+						connect.init();
 						wmslite.init()
 						.then (()=>{
-							//console.log("Resolved by wmslite.init()");
+							console.log("Resolved by wmslite.init()");
 							wmslite.show();
 							resolve();
 						})
