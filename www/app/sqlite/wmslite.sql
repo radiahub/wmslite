@@ -28,75 +28,81 @@
 DROP TABLE IF EXISTS business;
 CREATE TABLE IF NOT EXISTS business
 (
-	updated            TEXT DEFAULT '', -- Creation or update timestamp
-	business_id        TEXT DEFAULT '', -- Business identifier
 	business_name      TEXT DEFAULT '', -- Business name
 	business_address   TEXT DEFAULT '', -- Business address (multiline)
 	business_city      TEXT DEFAULT '', -- Business city (separate for document timestamp)
 	business_LngLat    TEXT DEFAULT '', -- Longitude/latitude of business location (shareable)
 	im_dataURL_fname   TEXT DEFAULT '', -- File storage for image/logo business dataURL
 	bg_dataURL_fname   TEXT DEFAULT '', -- File storage for background image
-	website            TEXT DEFAULT '', -- Official web site
 	user_name          TEXT DEFAULT '', -- User name
 	phone_no           TEXT DEFAULT '', -- User phone number
 	user_dataURL_fname TEXT DEFAULT ''  -- File storage for User profile image dataURL
 ); 
 
 
+DROP INDEX IF EXISTS Xcontacts4;
+DROP INDEX IF EXISTS Xcontacts3;
+DROP INDEX IF EXISTS Xcontacts2;
+DROP INDEX IF EXISTS Xcontacts1;
 
-
-DROP INDEX IF EXISTS Xproviders2;
-DROP INDEX IF EXISTS Xproviders1;
-DROP TABLE IF EXISTS providers;
-
-CREATE TABLE IF NOT EXISTS providers
+DROP TABLE IF EXISTS contacts;
+CREATE TABLE IF NOT EXISTS contacts
 (
-	updated          TEXT DEFAULT '', -- Creation or update timestamp
-	provider_id      TEXT DEFAULT '', -- Provider identifier (generated, "0001", "0002", etc.)
-	provider_name    TEXT DEFAULT '', -- Provider name
-	provider_address TEXT DEFAULT ''  -- Provider address (multiline)
+	contact_id         TEXT DEFAULT '', -- Generated, "0001", "0002", etc.
+	contact_name       TEXT DEFAULT '', -- Contact name
+	contact_address    TEXT DEFAULT '', -- Contact address (multiline)
+	contact_city       TEXT DEFAULT '', -- Contact city
+	is_supplier        TEXT DEFAULT '', -- "YES", "NO"
+	is_customer        TEXT DEFAULT '', -- "YES", "NO"
+	is_transporter     TEXT DEFAULT '', -- "YES", "NO"
+	user_name          TEXT DEFAULT '', -- User name
+	phone_no           TEXT DEFAULT '', -- User phone number
+	user_dataURL_fname TEXT DEFAULT ''  -- File storage for User profile image dataURL
 );
 
-CREATE INDEX IF NOT EXISTS Xproviders1 ON providers(provider_id);
-CREATE INDEX IF NOT EXISTS Xproviders2 ON providers(provider_name);
+CREATE INDEX IF NOT EXISTS Xcontacts1 ON contacts(contact_id);
+CREATE INDEX IF NOT EXISTS Xcontacts2 ON contacts(contact_name);
+CREATE INDEX IF NOT EXISTS Xcontacts3 ON contacts(user_name);
+CREATE INDEX IF NOT EXISTS Xcontacts4 ON contacts(phone_no);
 
 
+-- ****************************************************************************
+-- ****************************************************************************
+--
+-- MASTER DATA
+--
+-- ****************************************************************************
+-- ****************************************************************************
 
+DROP INDEX IF EXISTS Xlocations1;
+DROP TABLE IF EXISTS locations;
 
-DROP INDEX IF EXISTS Xcustomers2;
-DROP INDEX IF EXISTS Xcustomers1;
-DROP TABLE IF EXISTS customers;
-
-CREATE TABLE IF NOT EXISTS customers
+CREATE TABLE IF NOT EXISTS locations
 (
-	updated            TEXT DEFAULT '', -- Creation or update timestamp
-	customer_id        TEXT DEFAULT '', -- customer identifier (generated, "0001", "0002", etc.)
-	customer_name      TEXT DEFAULT '', -- customer name
-	customer_address   TEXT DEFAULT ''  -- customer address (multiline)
+	location_id   TEXT DEFAULT '', -- Location identifier
+	location_name TEXT DEFAULT '', -- Name of the location
+	is_inventory  TEXT DEFAULT '', -- "YES", "NO", "YES": The loccation counts as inventory location
+	refrigerated  TEXT DEFAULT ''  -- "YES", "NO", "YES": The location is refrigerated
 );
 
-CREATE INDEX IF NOT EXISTS Xcustomers1 ON customers(customer_id);
-CREATE INDEX IF NOT EXISTS Xcustomers2 ON customers(customer_name);
+CREATE INDEX IF NOT EXISTS Xlocations1 ON locations(location_id);
 
 
+DROP INDEX IF EXISTS Xproducts1;
+DROP TABLE IF EXISTS products;
 
-
-DROP INDEX IF EXISTS Xtransporters2;
-DROP INDEX IF EXISTS Xtransporters1;
-DROP TABLE IF EXISTS transporters;
-
-CREATE TABLE IF NOT EXISTS transporters
+CREATE TABLE IF NOT EXISTS products
 (
-	updated             TEXT DEFAULT '', -- Creation or update timestamp
-	transporter_id      TEXT DEFAULT '', -- transporter identifier (generated, "0001", "0002", etc.)
-	transporter_name    TEXT DEFAULT '', -- transporter name
-	transporter_address TEXT DEFAULT ''  -- transporter address (multiline)
+	product_id         TEXT DEFAULT '', -- Product identifier or barcode value
+	product_text       TEXT DEFAULT '', -- Searchable textual name and product description
+	im_dataURL_fname   TEXT DEFAULT '', -- File storage for product image dataURL
+	storage_unit       TEXT DEFAULT '', -- Textual unit representation (uppercase always)
+	refrigerated       TEXT DEFAULT '', -- "YES", "NO", "YES": The product requires a refrigerated area
+	reorder_quantity   NUMERIC,         -- Reorder minimal threshold
+	initial_unit_price NUMERIC          -- Initial reference supply unit price as of product creation
 );
 
-CREATE INDEX IF NOT EXISTS Xtransporters1 ON transporters(transporter_id);
-CREATE INDEX IF NOT EXISTS Xtransporters2 ON transporters(transporter_name);
-
-
+CREATE INDEX IF NOT EXISTS Xproducts1 ON products(product_id);
 
 
 -- ****************************************************************************
@@ -107,50 +113,6 @@ CREATE INDEX IF NOT EXISTS Xtransporters2 ON transporters(transporter_name);
 -- ****************************************************************************
 -- ****************************************************************************
 
-DROP INDEX IF EXISTS Xlocations1;
-DROP TABLE IF EXISTS locations;
-
-CREATE TABLE IF NOT EXISTS locations
-(
-	updated       TEXT DEFAULT '', -- Creation or update timestamp
-	location_id   TEXT DEFAULT '', -- Location identifier
-	location_name TEXT DEFAULT '', -- Name of the location
-	is_inventory  TEXT DEFAULT '', -- "YES", "NO", "YES": The loccation counts as inventory location
-	refrigerated  TEXT DEFAULT ''  -- "YES", "NO", "YES": The location is refrigerated
-);
-
-CREATE INDEX IF NOT EXISTS Xlocations1 ON locations(location_id);
-
-
-
-
-DROP INDEX IF EXISTS Xproducts3;
-DROP INDEX IF EXISTS Xproducts2;
-DROP INDEX IF EXISTS Xproducts1;
-DROP TABLE IF EXISTS products;
-
-CREATE TABLE IF NOT EXISTS products
-(
-	updated             TEXT DEFAULT '', -- Creation or update timestamp
-	barcode             TEXT DEFAULT '', -- Barcode value identifying the product
-	product_id          TEXT DEFAULT '', -- Product identifier
-	product_name        TEXT DEFAULT '', -- Product name
-	product_description TEXT DEFAULT '', -- Textual product description
-	im_dataURL_fname    TEXT DEFAULT '', -- File storage for product image dataURL
-	storage_unit        TEXT DEFAULT '', -- Textual unit representation (uppercase always)
-	reorder_quantity    TEXT DEFAULT '', -- Reorder minimal threshold
-	refrigerated        TEXT DEFAULT ''  -- "YES", "NO", "YES": The product requires a refrigerated area
-);
-
-CREATE INDEX IF NOT EXISTS Xproducts1 ON products(product_id);
-CREATE INDEX IF NOT EXISTS Xproducts2 ON products(product_name);
-CREATE INDEX IF NOT EXISTS Xproducts3 ON products(barcode);
-
-
-
--- Inventory
--- History log
---
 DROP INDEX IF EXISTS Xinventory4;
 DROP INDEX IF EXISTS Xinventory3;
 DROP INDEX IF EXISTS Xinventory2;
@@ -159,27 +121,25 @@ DROP TABLE IF EXISTS inventory;
 
 CREATE TABLE IF NOT EXISTS inventory
 (
-	updated     TEXT DEFAULT '', -- Creation or update timestamp
-	action_type TEXT DEFAULT '', -- Action type: "TAKING", "INBOUND", "PREPARATION", "MOVE", etc.
-	DO          TEXT DEFAULT '', -- Delivery order identifier being in process at the moment of the action
-	location_id TEXT DEFAULT '', -- Asociated location identifier
+	updated     TEXT DEFAULT '', -- Creation timestamp
+	action_info TEXT DEFAULT '', -- Action info: "TAKING", "PREPARATION", etc. or processed DO
+	location_id TEXT DEFAULT '', -- Asociated location identifier (most actions implying goods transfer create 2x inventory records)
 	product_id  TEXT DEFAULT '', -- Product identifier
-	quantity    NUMERIC          -- Quantity on location
+	qty_pulled  INTEGER,         -- Related removed quantity
+	qty_pushed  INTEGER,         -- Related added quantity
+	qty_on_hand INTEGER,         -- Estimated or real quantity on hand on location
+	reconciled  TEXT DEFAULT ''  -- "YES","NO", "YES" = the value of "qty_on_hand" is verified at instant "updated" (always "YES" on stock taking action)
 );
 
 CREATE INDEX IF NOT EXISTS Xinventory1 ON inventory(updated);
-CREATE INDEX IF NOT EXISTS Xinventory2 ON inventory(location_id);
-CREATE INDEX IF NOT EXISTS Xinventory3 ON inventory(product_id);
-CREATE INDEX IF NOT EXISTS Xinventory4 ON inventory(DO);
+CREATE INDEX IF NOT EXISTS Xinventory2 ON inventory(action_info);
+CREATE INDEX IF NOT EXISTS Xinventory3 ON inventory(location_id);
+CREATE INDEX IF NOT EXISTS Xinventory4 ON inventory(product_id);
 
 
-
-
--- Cost of Goods on Stock PER UNIT (UNIT COST)
--- History log
--- Excepts waste products
+-- Cost of Goods on Stock PER UNIT (UNIT COST) history log
+-- Accounted for ("is_inventory" = "YES") locations
 --
-DROP INDEX IF EXISTS Xcogs4;
 DROP INDEX IF EXISTS Xcogs3;
 DROP INDEX IF EXISTS Xcogs2;
 DROP INDEX IF EXISTS Xcogs1;
@@ -187,23 +147,20 @@ DROP TABLE IF EXISTS cogs;
 
 CREATE TABLE IF NOT EXISTS cogs
 (
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
+	updated           TEXT DEFAULT '', -- Creation timestamp
+	action_info       TEXT DEFAULT '', -- Action info: "INIT", "TAKING", "PREPARATION", etc. or processed DO
 	product_id        TEXT DEFAULT '', -- Product identifier
-	PO                TEXT DEFAULT '', -- Purchase order (PO) identifier
-	DO                TEXT DEFAULT '', -- Delivery (DO) identifier (partial or complete)
-	quantity_inbound  NUMERIC,         -- Quantity inbound/received
-	unit_price        NUMERIC,         -- Unit price as of the PO
-	quantity_on_stock NUMERIC,         -- Quantity already on stock
-	previous_cogs     NUMERIC,         -- Current COGS applying to the quantity on stock
+	qty_pulled        INTEGER,         -- Related removed quantity
+	qty_pushed        INTEGER,         -- Related added quantity
+	qty_on_hand       INTEGER,         -- Quantity already on stock
+	current_cogs      NUMERIC,         -- Current COGS applying to the quantity on stock
+	supply_unit_price NUMERIC,         -- New reference supply unit price as of "updated"
 	computed_cogs     NUMERIC          -- Resulting COGS after inbound
 );
 
 CREATE INDEX IF NOT EXISTS Xcogs1 ON cogs(updated);
 CREATE INDEX IF NOT EXISTS Xcogs2 ON cogs(product_id);
-CREATE INDEX IF NOT EXISTS Xcogs3 ON cogs(PO);
-CREATE INDEX IF NOT EXISTS Xcogs4 ON cogs(DO);
-
-
+CREATE INDEX IF NOT EXISTS Xcogs3 ON cogs(action_info);
 
 
 -- ****************************************************************************
@@ -214,35 +171,6 @@ CREATE INDEX IF NOT EXISTS Xcogs4 ON cogs(DO);
 -- ****************************************************************************
 -- ****************************************************************************
 
-DROP INDEX IF EXISTS Xmovements5;
-DROP INDEX IF EXISTS Xmovements4;
-DROP INDEX IF EXISTS Xmovements3;
-DROP INDEX IF EXISTS Xmovements2;
-DROP INDEX IF EXISTS Xmovements1;
-DROP TABLE IF EXISTS movements;
-
-CREATE TABLE IF NOT EXISTS movements
-(
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
-	on_action         TEXT DEFAULT '', -- One of action string values: "INBOUND","MOVE","PREPARE","SEND","WASTE", etc.
-	PO                TEXT DEFAULT '', -- Associated PO number
-	SO                TEXT DEFAULT '', -- Associated SO number
-	DO                TEXT DEFAULT '', -- Associated delivery order (partial or full)
-	product_id        TEXT DEFAULT '', -- Product identifier
-	quantity_moved    NUMERIC,         -- Quantity moved
-	from_location_id  TEXT DEFAULT '', -- Asociated "FROM" location identifier
-	to_location_id    TEXT DEFAULT ''  -- Asociated "TO" location identifier
-);
-
-CREATE INDEX IF NOT EXISTS Xmovements1 ON movements(updated);
-CREATE INDEX IF NOT EXISTS Xmovements2 ON movements(PO);
-CREATE INDEX IF NOT EXISTS Xmovements3 ON movements(SO);
-CREATE INDEX IF NOT EXISTS Xmovements4 ON movements(DO);
-CREATE INDEX IF NOT EXISTS Xmovements5 ON movements(product_id);
-
-
-
-
 DROP INDEX IF EXISTS Xstock_taking4;
 DROP INDEX IF EXISTS Xstock_taking3;
 DROP INDEX IF EXISTS Xstock_taking2;
@@ -251,19 +179,17 @@ DROP TABLE IF EXISTS stock_taking;
 
 CREATE TABLE IF NOT EXISTS stock_taking
 (
-	updated          TEXT DEFAULT '', -- Creation or update timestamp
-	stock_taking_id  TEXT DEFAULT '', -- Action identifier (generated)
-	product_id       TEXT DEFAULT '', -- Product identifier
-	location_id      TEXT DEFAULT '', -- Asociated location identifier
-	quantity_counted NUMERIC          -- Quantity moved
+	updated         TEXT DEFAULT '', -- Creation timestamp
+	stock_taking_id TEXT DEFAULT '', -- Action identifier (generated)
+	product_id      TEXT DEFAULT '', -- Product identifier
+	location_id     TEXT DEFAULT '', -- Asociated location identifier
+	qty_on_hand     INTEGER          -- Quantity verified on location
 );
 
 CREATE INDEX IF NOT EXISTS Xstock_taking1 ON stock_taking(updated);
-CREATE INDEX IF NOT EXISTS Xstock_taking2 ON stock_taking(product_id);
-CREATE INDEX IF NOT EXISTS Xstock_taking3 ON stock_taking(location_id);
-CREATE INDEX IF NOT EXISTS Xstock_taking4 ON stock_taking(stock_taking_id);
-
-
+CREATE INDEX IF NOT EXISTS Xstock_taking2 ON stock_taking(stock_taking_id);
+CREATE INDEX IF NOT EXISTS Xstock_taking3 ON stock_taking(product_id);
+CREATE INDEX IF NOT EXISTS Xstock_taking4 ON stock_taking(location_id);
 
 
 DROP INDEX IF EXISTS Xwaste4;
@@ -274,26 +200,24 @@ DROP TABLE IF EXISTS waste;
 
 CREATE TABLE IF NOT EXISTS waste
 (
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
-	waste_action_id   TEXT DEFAULT '', -- Action identifier (generated)
-	product_id        TEXT DEFAULT '', -- Product identifier
-	quantity_removed  NUMERIC,         -- Quantity removed
-	comments          TEXT DEFAULT '', -- Additional comments to the waste action
-	from_location_id  TEXT DEFAULT ''  -- Asociated "FROM" location identifier
+	updated         TEXT DEFAULT '', -- Creation timestamp
+	waste_action_id TEXT DEFAULT '', -- Action identifier (generated)
+	product_id      TEXT DEFAULT '', -- Product identifier
+	location_id     TEXT DEFAULT '', -- Asociated location identifier
+	qty_pulled      INTEGER,         -- Quantity removed
+	comments        TEXT DEFAULT ''  -- Additional comments to the waste action
 );
 
 CREATE INDEX IF NOT EXISTS Xwaste1 ON waste(updated);
 CREATE INDEX IF NOT EXISTS Xwaste2 ON waste(waste_action_id);
 CREATE INDEX IF NOT EXISTS Xwaste3 ON waste(product_id);
-CREATE INDEX IF NOT EXISTS Xwaste4 ON waste(from_location_id);
-
-
+CREATE INDEX IF NOT EXISTS Xwaste4 ON waste(location_id);
 
 
 -- ****************************************************************************
 -- ****************************************************************************
 --
--- PROVIDERS TRANSACTIONS
+-- SUPPLY TRANSACTIONS
 --
 -- ****************************************************************************
 -- ****************************************************************************
@@ -307,95 +231,34 @@ DROP TABLE IF EXISTS purchase_orders;
 CREATE TABLE IF NOT EXISTS purchase_orders
 (
 	updated            TEXT DEFAULT '', -- Creation or update timestamp
-	provider_id        TEXT DEFAULT '', -- Provider identifier (generated, "0001", "0002", etc.)
-	PO                 TEXT DEFAULT '', -- Purchase order document identifier
+	contact_id         TEXT DEFAULT '', -- Contact as supplier identifier
+	PO                 TEXT DEFAULT '', -- Purchase order document identifier (generated)
 	expectedDate       TEXT DEFAULT '', -- Expected completed delivery data
-	pctCompleted       NUMERIC,         -- Percentage of completion as of the last partial delivery order
+	pctCompleted       NUMERIC,         -- Percentage of completion as of last partial delivery order
 	markAsCompleted    TEXT DEFAULT '', -- "YES", "NO", "YES" = the order has been marked as completed
-	timestampCompleted TEXT DEFAULT ''  -- Timestamp of "mark as completed"
+	timestampCompleted TEXT DEFAULT ''  -- "markAsCompleted" timestamp
 );
 
 CREATE INDEX IF NOT EXISTS Xpurchase_orders1 ON purchase_orders(updated);
-CREATE INDEX IF NOT EXISTS Xpurchase_orders2 ON purchase_orders(provider_id);
+CREATE INDEX IF NOT EXISTS Xpurchase_orders2 ON purchase_orders(contact_id);
 CREATE INDEX IF NOT EXISTS Xpurchase_orders3 ON purchase_orders(PO);
 CREATE INDEX IF NOT EXISTS Xpurchase_orders4 ON purchase_orders(expectedDate);
 
 
-
-
-DROP INDEX IF EXISTS Xpurchase_orders_items3;
 DROP INDEX IF EXISTS Xpurchase_orders_items2;
 DROP INDEX IF EXISTS Xpurchase_orders_items1;
 DROP TABLE IF EXISTS purchase_orders_items;
 
 CREATE TABLE IF NOT EXISTS purchase_orders_items
 (
-	updated          TEXT DEFAULT '', -- Creation or update timestamp
-	PO               TEXT DEFAULT '', -- Purchase order document identifier
-	product_id       TEXT DEFAULT '', -- Product identifier
-	quantity_ordered NUMERIC,         -- Quantity delivered
-	unit_price       NUMERIC          -- Unit price as of the PO for COGS computation
+	PO                TEXT DEFAULT '', -- Purchase order document identifier (generated)
+	product_id        TEXT DEFAULT '', -- Product identifier 
+	qty_ordered       INTEGER,         -- Quantity delivered
+	supply_unit_price NUMERIC          -- Supply unit price as of PO creation
 );
 
-CREATE INDEX IF NOT EXISTS Xpurchase_orders_items1 ON purchase_orders_items(updated);
-CREATE INDEX IF NOT EXISTS Xpurchase_orders_items2 ON purchase_orders_items(PO);
-CREATE INDEX IF NOT EXISTS Xpurchase_orders_items3 ON purchase_orders_items(product_id);
-
-
-
-
-DROP INDEX IF EXISTS Xpo_deliveries5;
-DROP INDEX IF EXISTS Xpo_deliveries4;
-DROP INDEX IF EXISTS Xpo_deliveries3;
-DROP INDEX IF EXISTS Xpo_deliveries2;
-DROP INDEX IF EXISTS Xpo_deliveries1;
-DROP TABLE IF EXISTS po_deliveries;
-
-CREATE TABLE IF NOT EXISTS po_deliveries
-(
-	updated            TEXT DEFAULT '', -- Creation or update timestamp
-	PO                 TEXT DEFAULT '', -- Purchase order document identifier
-	DO                 TEXT DEFAULT '', -- Delivery (DO) identifier (partial or complete)
-	product_id         TEXT DEFAULT '', -- Product identifier
-	quantity_delivered NUMERIC,         -- Quantity delivered
-	transporter_id     TEXT DEFAULT '', -- Transporter identification
-	vehicle_reg_no     TEXT DEFAULT ''  -- Transporter vehicle regitration number
-);
-
-CREATE INDEX IF NOT EXISTS Xpo_deliveries1 ON po_deliveries(updated);
-CREATE INDEX IF NOT EXISTS Xpo_deliveries2 ON po_deliveries(PO);
-CREATE INDEX IF NOT EXISTS Xpo_deliveries3 ON po_deliveries(DO);
-CREATE INDEX IF NOT EXISTS Xpo_deliveries4 ON po_deliveries(product_id);
-CREATE INDEX IF NOT EXISTS Xpo_deliveries5 ON po_deliveries(transporter_id);
-
-
-
-
-DROP INDEX IF EXISTS Xpo_returns5;
-DROP INDEX IF EXISTS Xpo_returns4;
-DROP INDEX IF EXISTS Xpo_returns3;
-DROP INDEX IF EXISTS Xpo_returns2;
-DROP INDEX IF EXISTS Xpo_returns1;
-DROP TABLE IF EXISTS po_returns;
-
-CREATE TABLE IF NOT EXISTS po_returns
-(
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
-	PO                TEXT DEFAULT '', -- Purchase order document identifier
-	DO                TEXT DEFAULT '', -- Delivery (DO) identifier (partial or complete)
-	product_id        TEXT DEFAULT '', -- Product identifier
-	quantity_returned NUMERIC,         -- Quantity returned
-	transporter_id    TEXT DEFAULT '', -- Transporter identification
-	vehicle_reg_no    TEXT DEFAULT ''  -- Transporter vehicle regitration number
-);
-
-CREATE INDEX IF NOT EXISTS Xpo_returns1 ON po_returns(updated);
-CREATE INDEX IF NOT EXISTS Xpo_returns2 ON po_returns(PO);
-CREATE INDEX IF NOT EXISTS Xpo_returns3 ON po_returns(DO);
-CREATE INDEX IF NOT EXISTS Xpo_returns4 ON po_returns(product_id);
-CREATE INDEX IF NOT EXISTS Xpo_returns5 ON po_returns(transporter_id);
-
-
+CREATE INDEX IF NOT EXISTS Xpurchase_orders_items1 ON purchase_orders_items(PO);
+CREATE INDEX IF NOT EXISTS Xpurchase_orders_items2 ON purchase_orders_items(product_id);
 
 
 -- ****************************************************************************
@@ -415,92 +278,114 @@ DROP TABLE IF EXISTS sales_orders;
 CREATE TABLE IF NOT EXISTS sales_orders
 (
 	updated            TEXT DEFAULT '', -- Creation timestamp
-	customer_id        TEXT DEFAULT '', -- Provider identifier (generated, "0001", "0002", etc.)
+	contact_id         TEXT DEFAULT '', -- Contact as customer identifier
 	SO                 TEXT DEFAULT '', -- Purchase order document identifier
 	expectedDate       TEXT DEFAULT '', -- Expected completed delivery date
 	timestampStartPrep TEXT DEFAULT '', -- Timestamp at preparation starting
+	pctCompleted       NUMERIC,         -- Percentage of completion as of last partial delivery order
 	markAsCompleted    TEXT DEFAULT '', -- "YES", "NO", "YES" = the order has been marked as completed
 	timestampCompleted TEXT DEFAULT ''  -- Timestamp at sales order send completed
 );
 
 CREATE INDEX IF NOT EXISTS Xsales_orders1 ON sales_orders(updated);
-CREATE INDEX IF NOT EXISTS Xsales_orders2 ON sales_orders(customer_id);
+CREATE INDEX IF NOT EXISTS Xsales_orders2 ON sales_orders(contact_id);
 CREATE INDEX IF NOT EXISTS Xsales_orders3 ON sales_orders(SO);
 CREATE INDEX IF NOT EXISTS Xsales_orders4 ON sales_orders(expectedDate);
 
 
-
-
-DROP INDEX IF EXISTS Xsales_orders_items3;
 DROP INDEX IF EXISTS Xsales_orders_items2;
 DROP INDEX IF EXISTS Xsales_orders_items1;
 DROP TABLE IF EXISTS sales_orders_items;
 
 CREATE TABLE IF NOT EXISTS sales_orders_items
 (
-	updated          TEXT DEFAULT '', -- Creation or update timestamp
-	SO               TEXT DEFAULT '', -- Purchase order document identifier
-	product_id       TEXT DEFAULT '', -- Product identifier
-	quantity_ordered NUMERIC          -- Quantity ordered
+	SO          TEXT DEFAULT '', -- Purchase order document identifier
+	product_id  TEXT DEFAULT '', -- Product identifier
+	qty_ordered INTEGER          -- Quantity delivered
 );
 
-CREATE INDEX IF NOT EXISTS Xsales_orders_items1 ON sales_orders_items(updated);
-CREATE INDEX IF NOT EXISTS Xsales_orders_items2 ON sales_orders_items(SO);
-CREATE INDEX IF NOT EXISTS Xsales_orders_items3 ON sales_orders_items(product_id);
+CREATE INDEX IF NOT EXISTS Xsales_orders_items1 ON sales_orders_items(SO);
+CREATE INDEX IF NOT EXISTS Xsales_orders_items2 ON sales_orders_items(product_id);
 
 
+-- ****************************************************************************
+-- ****************************************************************************
+--
+-- DELIVERY TRANSACTIONS (INBOUND-OUTBOUND)
+--
+-- ****************************************************************************
+-- ****************************************************************************
 
+DROP INDEX IF EXISTS Xdelivery_orders4;
+DROP INDEX IF EXISTS Xdelivery_orders3;
+DROP INDEX IF EXISTS Xdelivery_orders2;
+DROP INDEX IF EXISTS Xdelivery_orders1;
+DROP TABLE IF EXISTS delivery_orders;
 
-DROP INDEX IF EXISTS Xso_deliveries5;
-DROP INDEX IF EXISTS Xso_deliveries4;
-DROP INDEX IF EXISTS Xso_deliveries3;
-DROP INDEX IF EXISTS Xso_deliveries2;
-DROP INDEX IF EXISTS Xso_deliveries1;
-DROP TABLE IF EXISTS so_deliveries;
-
-CREATE TABLE IF NOT EXISTS so_deliveries
+CREATE TABLE IF NOT EXISTS delivery_orders
 (
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
-	SO                TEXT DEFAULT '', -- Purchase order document identifier
-	DO                TEXT DEFAULT '', -- Delivery (DO) identifier (partial or complete)
-	product_id        TEXT DEFAULT '', -- Product identifier
-	quantity_sent     NUMERIC,         -- Quantity sent on delivery (partial or full)
-	transporter_id    TEXT DEFAULT '', -- Transporter identification
-	vehicle_reg_no    TEXT DEFAULT ''  -- Transporter vehicle regitration number
+	updated        TEXT DEFAULT '', -- Creation or update timestamp
+	document_id    TEXT DEFAULT '', -- PO or SO identifier (optional)
+	DO             TEXT DEFAULT '', -- Delivery order identifier (generated)
+	transporter_id TEXT DEFAULT '', -- Contact as transporter indentifier (optional)
+	vehicle_reg_no TEXT DEFAULT ''  -- Transporter vehicle regitration number
 );
 
-CREATE INDEX IF NOT EXISTS Xso_deliveries1 ON so_deliveries(updated);
-CREATE INDEX IF NOT EXISTS Xso_deliveries2 ON so_deliveries(SO);
-CREATE INDEX IF NOT EXISTS Xso_deliveries3 ON so_deliveries(DO);
-CREATE INDEX IF NOT EXISTS Xso_deliveries4 ON so_deliveries(product_id);
-CREATE INDEX IF NOT EXISTS Xso_deliveries5 ON so_deliveries(transporter_id);
+CREATE INDEX IF NOT EXISTS Xdelivery_orders1 ON delivery_orders(updated);
+CREATE INDEX IF NOT EXISTS Xdelivery_orders2 ON delivery_orders(document_id);
+CREATE INDEX IF NOT EXISTS Xdelivery_orders3 ON delivery_orders(DO);
+CREATE INDEX IF NOT EXISTS Xdelivery_orders4 ON delivery_orders(transporter_id);
 
 
+DROP INDEX IF EXISTS Xdelivery_order_items2;
+DROP INDEX IF EXISTS Xdelivery_order_items1;
+DROP TABLE IF EXISTS delivery_order_items;
 
-
-DROP INDEX IF EXISTS Xso_returns5;
-DROP INDEX IF EXISTS Xso_returns4;
-DROP INDEX IF EXISTS Xso_returns3;
-DROP INDEX IF EXISTS Xso_returns2;
-DROP INDEX IF EXISTS Xso_returns1;
-DROP TABLE IF EXISTS so_returns;
-
-CREATE TABLE IF NOT EXISTS so_returns
+CREATE TABLE IF NOT EXISTS delivery_order_items
 (
-	updated           TEXT DEFAULT '', -- Creation or update timestamp
-	SO                TEXT DEFAULT '', -- Purchase order document identifier
-	DO                TEXT DEFAULT '', -- Delivery (DO) identifier (partial or complete)
-	product_id        TEXT DEFAULT '', -- Product identifier
-	quantity_returned NUMERIC,         -- Quantity returned
-	transporter_id    TEXT DEFAULT '', -- Transporter identification
-	vehicle_reg_no    TEXT DEFAULT ''  -- Transporter vehicle regitration number
+	DO            TEXT DEFAULT '', -- Delivery identifier (generated)
+	product_id    TEXT DEFAULT '', -- Product identifier
+	qty_delivered INTEGER          -- Quantity delivered
 );
 
-CREATE INDEX IF NOT EXISTS Xso_returns1 ON so_returns(updated);
-CREATE INDEX IF NOT EXISTS Xso_returns2 ON so_returns(SO);
-CREATE INDEX IF NOT EXISTS Xso_returns3 ON so_returns(DO);
-CREATE INDEX IF NOT EXISTS Xso_returns4 ON so_returns(product_id);
-CREATE INDEX IF NOT EXISTS Xso_returns5 ON so_returns(transporter_id);
+CREATE INDEX IF NOT EXISTS Xdelivery_order_items1 ON delivery_order_items(DO);
+CREATE INDEX IF NOT EXISTS Xdelivery_order_items2 ON delivery_order_items(product_id);
+
+
+DROP INDEX IF EXISTS Xreturn_orders4;
+DROP INDEX IF EXISTS Xreturn_orders3;
+DROP INDEX IF EXISTS Xreturn_orders2;
+DROP INDEX IF EXISTS Xreturn_orders1;
+DROP TABLE IF EXISTS return_orders;
+
+CREATE TABLE IF NOT EXISTS return_orders
+(
+	updated        TEXT DEFAULT '', -- Creation or update timestamp
+	DO             TEXT DEFAULT '', -- Delivery order identifier (generated)
+	RO             TEXT DEFAULT '', -- Return order identifier (generated)
+	transporter_id TEXT DEFAULT '', -- Contact as transporter indentifier (optional)
+	vehicle_reg_no TEXT DEFAULT ''  -- Transporter vehicle regitration number
+);
+
+CREATE INDEX IF NOT EXISTS Xreturn_orders1 ON return_orders(updated);
+CREATE INDEX IF NOT EXISTS Xreturn_orders2 ON return_orders(DO);
+CREATE INDEX IF NOT EXISTS Xreturn_orders3 ON return_orders(RO);
+CREATE INDEX IF NOT EXISTS Xreturn_orders4 ON return_orders(transporter_id);
+
+
+DROP INDEX IF EXISTS Xreturn_order_items2;
+DROP INDEX IF EXISTS Xreturn_order_items1;
+DROP TABLE IF EXISTS return_order_items;
+
+CREATE TABLE IF NOT EXISTS return_order_items
+(
+	RO           TEXT DEFAULT '', -- Delivery identifier (generated)
+	product_id   TEXT DEFAULT '', -- Product identifier
+	qty_returned INTEGER          -- Quantity returned
+);
+
+CREATE INDEX IF NOT EXISTS Xreturn_order_items1 ON return_order_items(RO);
+CREATE INDEX IF NOT EXISTS Xreturn_order_items2 ON return_order_items(product_id);
 
 
 

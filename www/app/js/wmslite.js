@@ -219,26 +219,29 @@ var wmslite = {
 				dbase.batch(queries, false)
 				.then((logtxt)=>{
 
-					//console.log(logtxt);
+					console.log(logtxt);
 
 					var q = "SELECT * FROM locations "
 								+ "WHERE location_id IN ('STORE','REFRIGERATED','INBOUND','PREPARATION','PACKAGING','OUTBOUND','TRANSIT','WASTE')";
 
 					dbase.rows(q)
 					.then ((rows)=>{
-						//console.log("Resolved by dbase.rows() length=" + rows.length);
+
+						console.log(JSON.stringify(rows));
+
+						console.log("Resolved by dbase.rows() length=" + rows.length);
 						if (rows.length > 0) {
 							resolve();
 						}
 						else {
 
 							var filename = "app/sqlite/locations.sql";
-							//console.log(filename);
+							console.log(filename);
 							var queries = file2queries(filename);
-							//console.log(JSON.stringify(queries));
+							console.log(JSON.stringify(queries));
 							dbase.batch(queries, false)
 							.then((logtxt)=>{
-								//console.log(logtxt);
+								console.log(logtxt);
 								resolve();
 							})
 							.catch(()=>{ 
@@ -254,8 +257,9 @@ var wmslite = {
 					});
 
 				})
-				.catch(()=>{ 
-					//console.error("Rejected by dbase.batch()");
+				.catch((logtxt)=>{ 
+					console.error("Rejected by dbase.batch()");
+					console.error(logtxt);
 					reject();
 				});
 
