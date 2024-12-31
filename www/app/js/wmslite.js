@@ -83,6 +83,47 @@ var wmslite = {
 			});
 		});
 
+		jQuery("#BTN_SEARCH_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_SEARCH_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_GO_STOCKTAKE_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_GO_STOCKTAKE_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_GO_TRANSFER_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_GO_TRANSFER_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_GO_PREPARE_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_GO_PREPARE_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_GO_DASHBOARD_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_GO_DASHBOARD_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_GOSCAN_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_GOSCAN_WMSLITE).click()");
+			});
+		});
+
+		jQuery("#BTN_NAVIGATION_WMSLITE").off("click").on("click", function(){
+			ripple(this, function(){
+				console.info("IN jQuery(#BTN_NAVIGATION_WMSLITE).click()");
+			});
+		});
 
 		jQuery("#BTN_WITH_BARCODE").off("click").on("click", function(){
 			ripple(this, function(){

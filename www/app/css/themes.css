@@ -19,118 +19,103 @@ Date+Time of change   By     Description
 /* ************************************************************************ */
 /* ************************************************************************ */
 /*                                                                          */
-/* DEFAULT THEMES                                                           */
+/* COLOR SCHEME                                                             */
 /*                                                                          */
 /* ************************************************************************ */
 /* ************************************************************************ */
 
 .theme-light {
-
-	/* Mobile layout */
-	--splashbar               : #FFFFFF;
-	--statusbar               : #FFFFFF;
-	--navigationbar           : #FFFFFF;
-
-	/* Surfaces and backgrounds */
-	--background              : #F6F6F6;
-	--foreground              : #FFFFFF;
-	--dialog                  : #FFFFFF;
-	--menu                    : #FFFFFF;
-	--inversed                : #101B49;
-	--gossip                  : #F5F8FD;
-	--selected                : #999999;
-
-	/* Typography */
-	--text                    : #404040;
-	--dark                    : #000000;
-	--light                   : #999999;
-	--link                    : #555992;
-	--accent                  : #00AAAA;
-	--on-inversed             : #F0F0F0;
-	--on-inversed-dark        : #FFFFFF;
-	--on-gossip               : #585B6A;
-	--on-gossip-dark          : #000000;
-	--on-selected             : #F0F0F0;
-	--on-selected-dark        : #FFFFFF;
-
-	/* Controls */
-	--bg-disabled             : #B0B0B0;
-	--fg-disabled             : #F0F0F0;
-	--bg-off                  : #6A6A6A;
-	--fg-off                  : #CACACA;
-	--bg-on                   : #1E5EFF;
-	--fg-on                   : #E0E0F0;
-
-	--bg-ripple               : #E0E0F0;
-
-	--border-light            : #E0E0E0;
-	--border-dark             : #B0B0B0;
-	--border-gossip           : #B0B0B0;
-	--border-selected         : #B0B0B0;
-
+	--bg-header               : #3A5564;
+	--fg-header               : #FFFFFF;
+	--fg-header-light         : #D0D0DA;
+	--bg-default              : #3A5564;
+	--fg-default              : #FFFFFF;
+	--bg-action               : #000000;
+	--fg-action               : #FFFFFF;
+	--bg-background           : #F7F8FA;
+  --fg-background           : #202020;
+	--fg-background-dark      : #000000;
+	--fg-background-light     : #6C757A;
+	--bg-foreground           : #FFFFFF;
+	--fg-foreground           : #12181C;
+	--fg-foreground-dark      : #000000;
+	--fg-foreground-light     : #6C757A;
+	--fg-foreground-hint      : #9E9E9E;
+	--bg-overlay-alert        : #DEF3FC;
+	--fg-overlay-alert        : #12181C;
+	--fg-overlay-alert-dark   : #000000;
+	--fg-overlay-alert-light  : #8D9599;
+	--fg-overlay-alert-hint   : #027EB5;
+	--fg-link                 : #027EB5;
+	--fg-link-alt             : #1B8755;
+	--bg-control              : #F1F2F4;
+	--fg-control              : #3A5564;
+	--fg-control-alt          : #6C757A;
+	--bg-control-selected     : #3A5564;
+	--fg-control-selected     : #FFFFFF;
+	--bg-control-disabled     : #EAEDEE;
+	--fg-control-disabled     : #B3B9BD;
+	--fg-android-input-title  : #027EB5;
+	--bg-android-input        : transparent;
+	--fg-android-input        : #12181C;
+	--fg-android-input-alt    : #666666;
+	--border-android-input    : #027EB5;
+	--bg-ripple               : #A0B0B0;
+	--bg-selected             : #F1EEEB;
+	--border-light            : #E1E3E4;
+	--border-dark             : #B1B3B4;
 	--border-chart-grid       : #B0B0B0;
 	--fg-chart-grid           : #000000;
-	
 	--logo-background         : transparent;
-	--logo-color              : #40404C;
-	--logo-border             : #40404C;
-	--logo-on-inversed-color  : #F0F0F0;
-	--logo-on-inversed-border : #F0F0F0;
+	--logo-color              : #12181C;
+	--logo-border             : #12181C;
 }
 
 .theme-dark {
-
-	/* Mobile layout */
-	--splashbar               : #000000;
-	--statusbar               : #000000;
-	--navigationbar           : #000000;
-
-	/* Surfaces and backgrounds */
-	--background              : #000000;
-	--foreground              : #24282D;
-	--dialog                  : #24282D;
-	--menu                    : #24282D;
-	--inversed                : #A0A0E0;
-	--gossip                  : #101010;
-	--selected                : #101010;
-
-	/* Typography */
-	--text                    : #A0A0AD;
-	--dark                    : #F0F0F0;
-	--light                   : #606060;
-	--link                    : #DDDEEE;
-	--accent                  : #009999;
-	--on-inversed             : #202040;
-	--on-inversed-dark        : #000020;
-	--on-gossip               : #A0A0A0;
-	--on-gossip-dark          : #F0F0F0;
-	--on-selected             : #E0E0E0;
-	--on-selected-dark        : #FFFFFF;
-
-	/* Controls */
-	--bg-disabled             : #101010;
-	--fg-disabled             : #303030;
-	--bg-off                  : #8A8A8A;
-	--fg-off                  : #101010;
-	--bg-on                   : #1E5EFF;
-	--fg-on                   : #E0E0F0;
-
+	--bg-header               : #3A5564;
+	--fg-header               : #EAEDEE;
+	--fg-header-light         : #C0C0CA;
+	--bg-default              : #3A5564;
+	--fg-default              : #EAEDEE;
+	--bg-action               : #EAEDEE;
+	--fg-action               : #000000;
+	--bg-background           : #0A1014;
+  --fg-background           : #EAEDEE;
+	--fg-background-dark      : #FFFFFF;
+	--fg-background-light     : #8D9599;
+	--bg-foreground           : #0A1014;
+	--fg-foreground           : #EAEDEE;
+	--fg-foreground-dark      : #FFFFFF;
+	--fg-foreground-light     : #8D9599;
+	--fg-foreground-hint      : #AEAEAE;
+	--bg-overlay-alert        : #26353D;
+	--fg-overlay-alert        : #F7F8FA;
+	--fg-overlay-alert-dark   : #FFFFFF;
+	--fg-overlay-alert-light  : #AEAEAE;
+	--fg-overlay-alert-hint   : #027EB5;
+	--fg-link                 : #027EB5;
+	--fg-link-alt             : #1B8755;
+	--bg-control              : #12181C;
+	--fg-control              : #6C757A;
+	--fg-control-alt          : #9CA0A4;
+	--bg-control-selected     : #FAFAFA;
+	--fg-control-selected     : #3A5564;
+	--bg-control-disabled     : #EAEDEE;
+	--fg-control-disabled     : #B3B9BD;
+	--fg-android-input-title  : #027EB5;
+	--bg-android-input        : transparent;
+	--fg-android-input        : #FFFFFF;
+	--fg-android-input-alt    : #EAEDEE;
+	--border-android-input    : #027EB5;
 	--bg-ripple               : #9090A0;
-
-	--border-light            : #30393C;
-	--border-dark             : #51505A;
-	--border-gossip           : #354955;
-	--border-selected         : #354955;
-
+	--bg-selected             : #242626;
+	--border-light            : #1F2428;
+	--border-dark             : #354955;
 	--border-chart-grid       : #354955;
 	--fg-chart-grid           : #8D9599;
-
 	--logo-background         : transparent;
-	--logo-foreground         : #FFFFFF;
-	--logo-border             : #FFFFFF;
-	--logo-on-inversed-color  : #202040;
-	--logo-on-inversed-border : #202040;
-
+	--logo-color              : #F0F0F0;
+	--logo-border             : #F0F0F0;
 }
 
 
@@ -142,45 +127,56 @@ Date+Time of change   By     Description
 /* ************************************************************************ */
 /* ************************************************************************ */
 
-/* Mobile layout */
-.splashbar                 { background-color: var(--splashbar); }
-.statusbar                 { background-color: #00CC00; }
-.navigationbar             { background-color: var(--navigationbar); }
-
 /* Surfaces and backgrounds */
-.background                { background-color: var(--background); }
-.foreground                { background-color: var(--foreground); }
+.background                { background-color: var(--bg-background); }
+.background,
+.background .text          { color:var(--fg-background); }
+.background .dark          { color:var(--fg-background-dark); }
+.background .light         { color:var(--fg-background-light);}
 
-.inversed                  { background-color: var(--inversed); }
-.inversed, .inversed .text { color: var(--on-inversed) !important; }
-.inversed .dark            { color: var(--on-inversed-dark) !important; }
+.foreground                { background-color: var(--bg-foreground); }
+.background,
+.foreground .text          { color:var(--fg-foreground); }
+.foreground .dark          { color:var(--fg-foreground-dark); }
+.foreground .light         { color:var(--fg-foreground-light);}
+.foreground .hint          { color:var(--fg-foreground-hint); }
 
-.gossip                    { background-color: var(--gossip);  border-color:var(--border-gossip); }
-.gossip, .gossip .text     { color:var(--on-gossip) !important; }
-.gossip .dark              { color:var(--on-gossip-dark) !important; }
-.selected                  { background-color: var(--selected);  border-color:var(--border-selected); }
-.selected, .selected .text { color:var(--on-selected) !important; }
-.selected .dark            { color:var(--on-selected-dark) !important; }
+.inversed                  { background-color: var(--bg-header); }
+.inversed, .inversed .text { color: var(--fg-header); }
+
+.overlay-alert             { background-color: var(--bg-overlay-alert); }
+.overlay-alert, 
+.overlay-alert .text       { color:var(--fg-overlay-alert); }
+.overlay-alert .dark       { color:var(--fg-overlay-alert-dark ); }
+.overlay-alert .light      { color:var(--fg-overlay-alert-light); }
+.overlay-alert .hint       { color:var(--fg-overlay-alert-hint ); }
+
+.selected                  { background-color: var(--bg-selected); }
+.selected, 
+.selected .text            { color:var(--fg-foreground); }
+.selected .dark            { color:var(--fg-foreground-dark); }
+.selected .light           { color:var(--fg-foreground-light);}
+
+.active                    { background-color: var(--bg-selected); }
+.active, 
+.active .text              { color:var(--fg-foreground); }
+.active .dark              { color:var(--fg-foreground-dark); }
+.active .light             { color:var(--fg-foreground-light);}
 
 /* Typography */
-.text                      { color: var(--text);   }
-.dark                      { color: var(--dark);   }
-.light                     { color: var(--light);  }
-.link                      { color: var(--link);   }
-.accent                    { color: var(--accent); }
+.link                      { color: var(--fg-link); }
+.link-alt                  { color: var(--fg-link-alt); }
+.accent                    { color: var(--fg-link); }
 
 /* Controls */
-.active, .selected         { background-color: var(--selected);  color: var(--on-selected); border-color:var(--border-selected); }
-.active .dark,
-.selected .dark            { color:var(--on-selected-dark) !important; }
-.disabled                  { background-color: var(--bg-disabled); color: var(--fg-disabled); }
-.off                       { background-color: var(--bg-off); color: var(--fg-off); border-color: var(--fg-off); }
-.on                        { background-color: var(--bg-on); color: var(--fg-on); border-color: var(--fg-on); }
+.off                       { background-color: var(--bg-control); color: var(--fg-control); border-color: var(--fg-control); }
+.on                        { background-color: var(--bg-control-selected); color: var(--fg-control-selected); border-color: var(--fg-control-selected); }
+.disabled                  { background-color: var(--bg-control-disabled); color: var(--fg-control-disabled); border-color: var(--fg-control-disabled); }
 .ripple,.bg-ripple         { background-color: var(--bg-ripple); } 
 .border-light              { border-color: var(--border-light); }
 .border-dark               { border-color: var(--border-dark); }
 
-.echoselected              { background-color: #EDF3FF; color: #000000 !important; }
+/* Theme-independent */
 
 
 /* End of file: themes.css

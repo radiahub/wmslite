@@ -15,6 +15,103 @@
 //
 // ============================================================================
 
+var screenReportHTML = '<div id="DIV_REPORT_[page_id]" class="page foreground overflow"></div>';
+
+function report(options_)
+{
+  var that = this;
+		 this.options = {
+		 		 metadata     : {},
+		 		 contentURI   : "",
+		 		 oreientation : "portrait",
+		 		 globalize    : true
+		 };
+		
+		 for (var i in options_) { this.options[i] = options_[i]; }
+		
+  this.page = null;
+		
+  this.asPDF = function()
+		 {
+		 		  return new Promise(
+		 		    (resolve, reject)=>{
+		 		    		 console.info("IN report.asPDF()");
+		 		    }
+		 		  );
+		 };
+		
+		 this.share = function()
+				{
+		 		  return new Promise(
+		 		    (resolve, reject)=>{
+		 		    		 console.info("IN report.share()");
+		 		    }
+		 		  );
+		 };
+
+	// **************************************************************************
+	// **************************************************************************
+	// 
+	// RUNTIME EVENTS
+	//
+	// **************************************************************************
+	// **************************************************************************
+
+	this.onbackbutton: function()
+	{
+		//console.info("IN report.onbackbutton()");
+		that.hide();
+	};
+
+		this.onshow: function()
+	{
+		//console.info("IN report.onshow()");
+	};
+
+		
+	// **************************************************************************
+	// **************************************************************************
+	// 
+	// GUI
+	//
+	// **************************************************************************
+	// **************************************************************************
+		
+	this.hide = function() 
+	{
+		//console.info("IN report.hide()");
+		if (that.page !== null) {
+			that.page.remove();
+			that.page = null;
+		}
+	},
+	
+			 this.show = function()
+		 {
+			//console.info("IN wmslite.show()");	
+
+		that.page = new page({
+				page_id          : "page_report",
+				contentURI       : "lib/html/report.html",
+				scriptURI        : "lib/js/report.js",
+				windowObjectName : "report",
+				onbackbutton     : that.onbackbutton,
+				onshow           : that.onshow,
+				globalize        : false
+		});
+
+		if (that.page !== null) { 			
+			that.page.show();
+		}
+ 		
+		};
+		
+}
+
+
+
+
+
 function report(options)
 {
 	return new Promise(

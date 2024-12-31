@@ -25,8 +25,8 @@
 	<preference name="backgroundColor" value="0xFF000000" />
 	<preference name="package_id" value="radiahub.wmslite" />
 	<preference name="gateway" value='{"uri":"","secret":""}'/>
-	<preference name="statusbar" value='{"light":"#FFFFFF", "dark":"#000000"}' />
-	<preference name="navigationbar" value='{"light":"#FFFFFF", "dark":"#000000"}' />
+	<preference name="statusbar" value='{"light":"#3A5564", "dark":"#3A5564"}' />
+	<preference name="navigationbar" value='{"light":"#FFFFFF", "dark":"#0A1014"}' />
 
 	<platform name="android">
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />

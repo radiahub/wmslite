@@ -1,22 +1,39 @@
 <div class="page foreground text">
-	<div class="fit padding-m">
+	<div class="fit">
 
-		<div class="row border-1-px-bottom border-light" style="height:3.4rem">
-			<div id="BTN_CLOSE_WMSLITE" class="col-3 padding-m-left fit-height flex-left">
-				<i class="zmdi zmdi-arrow-left bold" style="font-size:150%;"></i>
+		<div class="row" style="height:3.4rem; background-color:var(--bg-header); color:var(--fg-header);">
+			<div class="col-3 fit-height flex-middle">
+				<div id="BTN_CLOSE_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+					<i class="zmdi zmdi-arrow-left h3"></i>
+				</div>
 			</div>
-			<div class="col-18 fit-height flex-left" style="font-size:140%;">
+			<div class="col-12 fit-height h3 flex-left">
 				WMS IMS LITE
 			</div>
-			<div class="col-3 padding-m-left fit-height flex-left">
+			<div class="col-3 fit-height flex-middle">
+				<div id="BTN_SEARCH_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+					<i class="zmdi zmdi-search h3x"></i>
+				</div>
+			</div>
+			<div class="col-3 fit-height flex-middle">
+				<div id="BTN_GOSCAN_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+					<img src="lib/img/scan-white.png" style="height:1.20em" alt="">
+				</div>
+			</div>
+			<div class="col-3 fit-height flex-middle">
+				<div id="BTN_NAVIGATION_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+					<i class="zmdi zmdi-menu h3"></i>
+				</div>
 			</div>
 		</div>
 
-		<div class="page-docking-bottom padding-m" style="top:4.4em;">
+		<div class="page-docking-bottom padding-m" style="top:3.4em; bottom:3.4em;">
 			<div class="fit overflow-y">
 				
-				<div id="BTN_WITH_BARCODE" class="row margin-l-top">
-					<img id="img_barcode" class="img">
+				<div id="BTN_WITH_BARCODE" class="row">
+					<div class="col-18">
+						<img id="img_barcode" class="img">
+					</div>
 				</div>
 
 				<div class="row margin-l-top">
@@ -28,11 +45,41 @@
 									<td>SCAN</td>
 								</tr>
 							</table>
+						</div>	
 					</div>
 					<div class="col-6"></div>
 					<div class="col-8"></div>
 				</div>
 
+			</div>
+		</div>
+
+		<div class="page-docking-bottom" style="height:5.0em;">
+			<div class="row fit-height padding-m-left padding-m-right">
+				<div id="BTN_GO_STOCKTAKE_WMSLITE" class="col-6 fit-height flex-middle">
+					<div class="row flex-middle" style="height:3.0em;">
+						<i class="zmdi zmdi-store h2"></i>
+					</div>
+					<div class="h6x text-center">Stock take</div>
+				</div>
+				<div id="BTN_GO_TRANSFER_WMSLITE" class="col-6 fit-height flex-middle">
+					<div class="row flex-middle" style="height:3.0em;">
+						<i class="zmdi zmdi-truck h3x"></i>
+					</div>
+					<div class="h6x text-center">Transfer</div>
+				</div>
+				<div id="BTN_GO_PREPARE_WMSLITE" class="col-6 fit-height flex-middle">
+					<div class="row flex-middle" style="height:3.0em;">
+						<i class="fa fa-list-ol h4x"></i>
+					</div>
+					<div class="h6x text-center">Prepare</div>
+				</div>
+				<div id="BTN_GO_DASHBOARD_WMSLITE" class="col-6 fit-height flex-middle">
+					<div class="row flex-middle" style="height:3.0em;">
+						<i class="fa fa-area-chart h3"></i>
+					</div>
+					<div class="h6x text-center">Reports</div>
+				</div>
 			</div>
 		</div>
 
