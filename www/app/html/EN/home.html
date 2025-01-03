@@ -3,7 +3,7 @@
 
 		<div class="row" style="height:3.4rem; background-color:var(--bg-header); color:var(--fg-header);">
 			<div class="col-3 fit-height flex-middle">
-				<div id="BTN_CLOSE_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+				<div id="BTN_CLOSE_HOME" class="circle flex-middle" style="height:2.2em; width:2.2em;">
 					<i class="zmdi zmdi-arrow-left h3"></i>
 				</div>
 			</div>
@@ -11,23 +11,23 @@
 				WMS IMS LITE
 			</div>
 			<div class="col-3 fit-height flex-middle">
-				<div id="BTN_SEARCH_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+				<div id="BTN_SEARCH_HOME" class="circle flex-middle" style="height:2.2em; width:2.2em;">
 					<i class="zmdi zmdi-search h3x"></i>
 				</div>
 			</div>
 			<div class="col-3 fit-height flex-middle">
-				<div id="BTN_GOSCAN_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
-					<img src="lib/img/scan-white.png" style="height:1.20em" alt="">
+				<div id="BTN_GOSCAN_HOME" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+					<img id="IMG_GOSCAN_HOME" src="lib/img/scan-white.png" style="height:1.20em" alt="">
 				</div>
 			</div>
 			<div class="col-3 fit-height flex-middle">
-				<div id="BTN_NAVIGATION_WMSLITE" class="circle flex-middle" style="height:2.2em; width:2.2em;">
+				<div id="BTN_PREFERENCES_HOME" class="circle flex-middle" style="height:2.2em; width:2.2em;">
 					<i class="zmdi zmdi-menu h3"></i>
 				</div>
 			</div>
 		</div>
 
-		<div class="page-docking-bottom padding-m" style="top:3.4em; bottom:3.4em;">
+		<div class="page-docking-bottom padding-m" style="top:3.4em;">
 			<div class="fit overflow-y">
 				
 				<div id="BTN_WITH_BARCODE" class="row">
@@ -36,9 +36,10 @@
 					</div>
 				</div>
 
+				<!--
 				<div class="row margin-l-top">
 					<div class="col-10">
-						<div id="BTN_SCAN_WMSLITE" class="button action">
+						<div id="BTN_SCAN_HOME" class="button action">
 							<table>
 								<tr>
 									<td><i class="fa fa-barcode h3"></i></td>
@@ -50,31 +51,43 @@
 					<div class="col-6"></div>
 					<div class="col-8"></div>
 				</div>
-
+				-->
+				
 			</div>
 		</div>
 
+		<div id="BTN_HOME_ACTION" class="absolute button action flex-middle radius-large shadow-00" style="width:3.4em; height:3.4em; right:1.4em; bottom:1.4em;">
+			<i class="zmdi zmdi-plus h2 bold"></i>
+		</div>
+
+		<div id="DIV_NAVIGATION_MENU" class="page-docking-bottom bg-yellow" style="top:100%;">
+		</div>
+
+		<div id="DIV_PREFERENCES_MENU" class="absolute bg-red" style="top:3.4em; left:100%; height:calc(100% - 3.4em); width:100%;">
+		</div>
+
+		<!--
 		<div class="page-docking-bottom" style="height:5.0em;">
 			<div class="row fit-height padding-m-left padding-m-right">
-				<div id="BTN_GO_STOCKTAKE_WMSLITE" class="col-6 fit-height flex-middle">
+				<div id="BTN_GO_STOCKTAKE_HOME" class="col-6 fit-height flex-middle">
 					<div class="row flex-middle" style="height:3.0em;">
 						<i class="zmdi zmdi-store h2"></i>
 					</div>
 					<div class="h6x text-center">Stock take</div>
 				</div>
-				<div id="BTN_GO_TRANSFER_WMSLITE" class="col-6 fit-height flex-middle">
+				<div id="BTN_GO_TRANSFER_HOME" class="col-6 fit-height flex-middle">
 					<div class="row flex-middle" style="height:3.0em;">
 						<i class="zmdi zmdi-truck h3x"></i>
 					</div>
 					<div class="h6x text-center">Transfer</div>
 				</div>
-				<div id="BTN_GO_PREPARE_WMSLITE" class="col-6 fit-height flex-middle">
+				<div id="BTN_GO_PREPARE_HOME" class="col-6 fit-height flex-middle">
 					<div class="row flex-middle" style="height:3.0em;">
 						<i class="fa fa-list-ol h4x"></i>
 					</div>
 					<div class="h6x text-center">Prepare</div>
 				</div>
-				<div id="BTN_GO_DASHBOARD_WMSLITE" class="col-6 fit-height flex-middle">
+				<div id="BTN_GO_DASHBOARD_HOME" class="col-6 fit-height flex-middle">
 					<div class="row flex-middle" style="height:3.0em;">
 						<i class="fa fa-area-chart h3"></i>
 					</div>
@@ -82,6 +95,7 @@
 				</div>
 			</div>
 		</div>
+		-->
 
 	</div>
 </div>

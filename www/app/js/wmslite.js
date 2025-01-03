@@ -17,226 +17,6 @@
 
 var wmslite = {
 
-	page : null, barcodeDataURL : "",
-
-	
-	// **************************************************************************
-	// **************************************************************************
-	// 
-	// RUNTIME EVENTS
-	//
-	// **************************************************************************
-	// **************************************************************************
-
-	onbackbutton: function()
-	{
-		//console.info("IN wmslite.onbackbutton()");
-		wmslite.hide();
-	},
-
-	onthemechanged: function(newThemeID)
-	{
-		return new Promise(
-			(yes, no) => {
-				//console.info("IN wmslite.onthemechanged() newThemeID='" + newThemeID + "'");
-				//Do something useful
-				yes();
-			}
-		);
-	},
-
-	onshow: function()
-	{
-		console.info("IN wmslite.onshow()");
-
-		jQuery("#BTN_CLOSE_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-
-				console.info("IN jQuery(#BTN_CLOSE_WMSLITE).click()");
-
-				var options = {
-					metadata   : { src_img_print_po: wmslite.barcodeDataURL },
-					contentURI : "app/html/print_po.html",
-					globalize  : true
-				};
-
-				//console.log(JSON.stringify(options));
-
-				report(options)
-				.then (()=>{
-					console.log("Resolved by report()");
-				})
-				.catch(()=>{
-					console.error("Rejected by report()");
-				});
-
-				/*
-				dbase.rows("SELECT * FROM locations")
-				.then ((rows)=>{
-					console.log(JSON.stringify(rows));
-				})
-				.catch(()=>{
-					console.error("Rejected by dbase.rows()");
-				});
-				*/
-
-			});
-		});
-
-		jQuery("#BTN_SEARCH_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_SEARCH_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_GO_STOCKTAKE_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_GO_STOCKTAKE_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_GO_TRANSFER_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_GO_TRANSFER_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_GO_PREPARE_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_GO_PREPARE_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_GO_DASHBOARD_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_GO_DASHBOARD_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_GOSCAN_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_GOSCAN_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_NAVIGATION_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				console.info("IN jQuery(#BTN_NAVIGATION_WMSLITE).click()");
-			});
-		});
-
-		jQuery("#BTN_WITH_BARCODE").off("click").on("click", function(){
-			ripple(this, function(){
-
-				var filename = cordova.file.externalRootDirectory + "Download/" + "PO-241226-0048.pdf";
-
-				var options = {
-					message: "PO-241226-0048.pdf",
-					subject: "PO-241226-0048.pdf",
-					files: [filename]
-				};
-
-				var onSuccess = function(result) {
-					console.log("Share completed? " + result.completed);
-					console.log("Shared to app: " + result.app);
-				};
-
-				var onError = function(msg) {
-					console.log("Sharing failed with message: " + msg);
-				};
-
-				window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
-
-			});
-		});
-
-		jQuery("#BTN_SCAN_WMSLITE").off("click").on("click", function(){
-			ripple(this, function(){
-				barcode.read()
-				.then ((result)=>{
-					console.log(JSON.stringify(result));
-					take_barcode(result)
-					.then (()=>{
-						console.log("Resolved by take_barcode()");
-					})
-					.catch(()=>{
-						console.warn("Rejected by take_barcode()");
-					});
-				})
-				.catch(()=>{
-					console.warn("Rejected by barcode.read()");
-				});
-			});
-		});
-
-
-		var po = "PO-241226-0048";
-
-		var options = {
-			format: "CODE128",
-			height : 60,
-			margin : 0,
-			fontSize : 18,
-  		displayValue : true
-		};
-
-		//console.log(JSON.stringify(options));
-
-		JsBarcode("#barcode", po, options);
-
-		setTimeout(
-			function() {
-				var canvas = document.getElementById("barcode"); 
-				var dataURL = canvas.toDataURL("image/png");
-				//console.log(logFromDataURL(dataURL));
-				jQuery("#img_barcode").image(dataURL);
-				wmslite.barcodeDataURL = dataURL;
-			},
-			100
-		);
-
-
-	},
-
-
-	// **************************************************************************
-	// **************************************************************************
-	//
-	// DISPLAY API
-	//
-	// **************************************************************************
-	// **************************************************************************
-
-	hide : function() 
-	{
-		//console.info("IN wmslite.hide()");
-		if (wmslite.page !== null) {
-			wmslite.page.remove();
-			wmslite.page = null;
-		}
-	},
-
-	show: function()
-	{
-		//console.info("IN wmslite.show()");	
-
-		wmslite.page = new page({
-			page_id          : "page_wmslite",
-		  contentURI       : "app/html/wmslite.html",
-			scriptURI        : "app/js/wmslite.js",
-			windowObjectName : "wmslite",
-			onbackbutton     : wmslite.onbackbutton,
-			onshow           : wmslite.onshow,
-			onthemechanged   : wmslite.onthemechanged,
-			globalize        : true
-		});
-
-		if (wmslite.page !== null) { 			
-			wmslite.page.show();
-		}
-	},
-
-
 	// **************************************************************************
 	// **************************************************************************
 	//
@@ -244,6 +24,70 @@ var wmslite = {
 	//
 	// **************************************************************************
 	// **************************************************************************
+
+	newID : function(len, maxlen)
+	{
+		return new Promise(
+			(resolve, reject)=>{
+				//console.info("IN wmslite.newID() minlen=" + len);
+
+				var no_of_attempts = 5000;
+				var current = 0;
+				var candidate = rand_num_str(len);
+
+				var iterate = function() {
+					
+					var go_on = function() {
+						current++;
+						if (current > no_of_attempts) {
+							len++;
+							if (len > maxlen) {
+								console.error("No computed solution resolved");
+								reject();
+							}
+							else {
+								current = 0;
+								candidate = rand_num_str(len);
+								iterate();
+							}
+						}
+						else {
+							candidate = rand_num_str(len);
+							iterate();
+						}
+					};
+
+					dbase.locate("identifiers", { identifier: candidate })
+					.then ((row)=>{
+
+						if (row === null) {
+							//console.log("Valid candidate found candidate='" + candidate + "'");
+							dbase.insert("identifiers", { updated: datetime.now(), identifier: candidate })
+							.then (()=>{
+								resolve(candidate);
+							})
+							.catch(()=>{
+								console.error("Rejected by dbase.insert(identifiers)");
+								reject();
+							});
+							
+						}
+						else {
+							//console.log("dbase.locate(identifiers) returned non-null");
+							go_on();
+						}
+					})
+					.catch(()=>{
+						//console.warn("Rejected by dbase.locate(identifiers)");
+						go_on();
+					});
+
+				};
+
+				iterate();
+			},
+		);
+	},
 
 	init : function()
 	{
@@ -259,37 +103,40 @@ var wmslite = {
 				//console.log(JSON.stringify(queries));
 				dbase.batch(queries, false)
 				.then((logtxt)=>{
-
-					console.log(logtxt);
-
+					//console.log(logtxt);
+					/*
+					dbase.rows("SELECT * FROM identifiers WHERE 1")
+					.then ((rows)=>{
+						console.log(JSON.stringify(rows));
+					})
+					.catch(()=>{
+						console.error("Rejected by 'SELECT * FROM identifiers WHERE 1'");
+					});
+					*/
 					var q = "SELECT * FROM locations "
 								+ "WHERE location_id IN ('STORE','REFRIGERATED','INBOUND','PREPARATION','PACKAGING','OUTBOUND','TRANSIT','WASTE')";
 
 					dbase.rows(q)
 					.then ((rows)=>{
-
-						console.log(JSON.stringify(rows));
-
+						//console.log(JSON.stringify(rows));
 						console.log("Resolved by dbase.rows() length=" + rows.length);
 						if (rows.length > 0) {
 							resolve();
 						}
 						else {
-
 							var filename = "app/sqlite/locations.sql";
-							console.log(filename);
+							//console.log(filename);
 							var queries = file2queries(filename);
-							console.log(JSON.stringify(queries));
+							//console.log(JSON.stringify(queries));
 							dbase.batch(queries, false)
 							.then((logtxt)=>{
-								console.log(logtxt);
+								//console.log(logtxt);
 								resolve();
 							})
 							.catch(()=>{ 
 								//console.warn("Rejected by dbase.batch()");
 								resolve();
 							});
-
 						}
 					})
 					.catch(()=>{
@@ -320,11 +167,11 @@ var wmslite = {
 						wmslite.init()
 						.then (()=>{
 							console.log("Resolved by wmslite.init()");
-							wmslite.show();
+							home.show();
 							resolve();
 						})
 						.catch(()=>{
-							//console.error("Rejected by wmslite.init()");
+							console.error("Rejected by wmslite.init()");
 							reject();
 						});
 
